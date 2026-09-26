@@ -5,15 +5,7 @@ plugins {
 }
 
 def nmsVersions = [
-        nmsV121R1: [path: 'v1_21_R1', dependency: '1.21.1-R0.1-SNAPSHOT', classifier: 'remapped-mojang'],
-        nmsV121R2: [path: 'v1_21_R2', dependency: '1.21.3-R0.1-SNAPSHOT', classifier: 'remapped-mojang'],
-        nmsV121R3: [path: 'v1_21_R3', dependency: '1.21.4-R0.1-SNAPSHOT', classifier: 'remapped-mojang'],
-        nmsV121R4: [path: 'v1_21_R4', dependency: '1.21.5-R0.1-SNAPSHOT', classifier: 'remapped-mojang'],
-        nmsV121R5: [path: 'v1_21_R5', dependency: '1.21.8-R0.1-SNAPSHOT', classifier: 'remapped-mojang'],
-        nmsV121R6: [path: 'v1_21_R6', dependency: '1.21.10-R0.1-SNAPSHOT', classifier: 'remapped-mojang'],
-        nmsV121R7: [path: 'v1_21_R7', dependency: '1.21.11-R0.1-SNAPSHOT', classifier: 'remapped-mojang'],
-        nmsV261R1: [path: 'v26_1_R1', dependency: '26.1.2-R0.1-SNAPSHOT', javaVersion: 25],
-        nmsV262R1: [path: 'v26_2_R1', dependency: '26.2-R0.1-SNAPSHOT', javaVersion: 25],
+        nmsV263R1: [path: 'v26_3_R1', javaVersion: 25],
 ]
 
 repositories {
@@ -51,13 +43,13 @@ nmsVersions.each { sourceSetName, version ->
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT")
-    compileOnly("net.momirealms:craft-engine-bukkit:26.8")
-    compileOnly("net.momirealms:craft-engine-core:26.8")
-    compileOnly("net.momirealms:craft-engine-adventure:26.7.4")
-    compileOnly("net.momirealms:craft-engine-bukkit-proxy:26.8")
-    compileOnly("net.momirealms:craft-engine-nms-helper-mojmap:1.0.230")
-    compileOnly("net.momirealms:craft-engine-nms-helper:1.0.230")
+    compileOnly("io.papermc.paper:paper-api:26.3.build.47-alpha")
+    compileOnly("net.momirealms:craft-engine-bukkit:26.9.2-SNAPSHOT")
+    compileOnly("net.momirealms:craft-engine-core:26.9.2-SNAPSHOT")
+    compileOnly("net.momirealms:craft-engine-adventure:26.8-SNAPSHOT")
+    compileOnly("net.momirealms:craft-engine-bukkit-proxy:26.9.2-SNAPSHOT")
+    compileOnly("net.momirealms:craft-engine-nms-helper-mojmap:1.0.240")
+    compileOnly("net.momirealms:craft-engine-nms-helper:1.0.240")
     compileOnly("io.netty:netty-all:4.1.100.Final")
     compileOnly("com.mojang:datafixerupper:8.0.16")
     compileOnly("net.momirealms:sparrow-util:0.112")
@@ -68,26 +60,21 @@ dependencies {
     compileOnly("net.momirealms:sparrow-heart:0.69")
     compileOnly("net.momirealms:sparrow-metadata:1.13")
     compileOnly("net.momirealms:sparrow-reflection:0.31")
-    compileOnly("net.momirealms:sparrow-reflection-proxy-scanner:1.1")
     compileOnly("me.clip:placeholderapi:2.11.6")
     implementation("net.momirealms:antigrieflib:1.0.11")
     implementation("org.bstats:bstats-bukkit:3.2.1")
     testImplementation("org.junit.jupiter:junit-jupiter:5.11.4")
-    testImplementation("io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT")
-    testImplementation("net.momirealms:craft-engine-core:26.8")
+    testImplementation("io.papermc.paper:paper-api:26.3.build.47-alpha")
+    testImplementation("net.momirealms:craft-engine-core:26.9.2-SNAPSHOT")
     // FlexMatcher 的成品构建段引用了 shade 进去的 adventure 光加载类就要解析到
-    testRuntimeOnly("net.momirealms:craft-engine-adventure:26.7.4")
+    testRuntimeOnly("net.momirealms:craft-engine-adventure:26.8-SNAPSHOT")
     testImplementation("it.unimi.dsi:fastutil:8.5.18")
     testImplementation("com.google.guava:guava:33.6.0-jre")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.11.4")
 
-    nmsVersions.each { sourceSetName, version ->
-        def notation = "org.spigotmc:spigot:${version.dependency}"
-        if (version.classifier != null) {
-            notation += ":${version.classifier}"
-        }
-        add("${sourceSetName}CompileOnly", notation)
-    }
+    nmsV263R1CompileOnly("io.papermc.paper:paper-api:26.3.build.47-alpha")
+    nmsV263R1CompileOnly("net.momirealms:craft-engine-bukkit-proxy:26.9.2-SNAPSHOT")
+
 }
 
 shadowJar {
@@ -108,20 +95,20 @@ tasks.named('assemble') {
 
 tasks {
     runServer {
-        minecraftVersion("26.1.2")
+        minecraftVersion("26.3")
     }
 }
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(25)
     }
     withJavadocJar()
 }
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
-    options.release.set(21)
+    options.release.set(25)
 }
 
 tasks.named('test') {
@@ -131,7 +118,7 @@ tasks.named('test') {
 nmsVersions.each { sourceSetName, version ->
     if (version.javaVersion != null) {
         tasks.named(sourceSets[sourceSetName].compileJavaTaskName, JavaCompile) {
-            options.release.set(21)
+            options.release.set(25)
             javaCompiler.set(javaToolchains.compilerFor {
                 languageVersion = JavaLanguageVersion.of(version.javaVersion)
             })

@@ -11,6 +11,7 @@ import org.bukkit.entity.Entity;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Proxy;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -55,6 +56,7 @@ class EntityPropertiesConditionTest {
     }
 
     private static Context context(Entity platformEntity) {
+        Map<String, Object> variables = new HashMap<>();
         net.momirealms.craftengine.core.entity.Entity entity =
                 (net.momirealms.craftengine.core.entity.Entity) Proxy.newProxyInstance(
                         net.momirealms.craftengine.core.entity.Entity.class.getClassLoader(),
@@ -77,6 +79,21 @@ class EntityPropertiesConditionTest {
                 return key == DirectContextParameters.ENTITY
                         ? Optional.of((T) entity)
                         : Optional.empty();
+            }
+
+            @Override
+            public void setVariable(String key, Object value) {
+                variables.put(key, value);
+            }
+
+            @Override
+            public Object getVariable(String key) {
+                return variables.get(key);
+            }
+
+            @Override
+            public Map<String, Object> variables() {
+                return variables;
             }
         };
     }

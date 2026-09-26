@@ -35,19 +35,8 @@ public final class NmsBridgeProvider {
     }
 
     private static String implementationClassName(String version) {
-        if (version.startsWith("26.2")) return name("v26_2_R1", "NmsV26_2_R1");
-        if (version.startsWith("26.1")) return name("v26_1_R1", "NmsV26_1_R1");
-
-        return switch (version) {
-            case "1.21", "1.21.1" -> name("v1_21_R1", "NmsV1_21_R1");
-            case "1.21.2", "1.21.3" -> name("v1_21_R2", "NmsV1_21_R2");
-            case "1.21.4" -> name("v1_21_R3", "NmsV1_21_R3");
-            case "1.21.5" -> name("v1_21_R4", "NmsV1_21_R4");
-            case "1.21.6", "1.21.7", "1.21.8" -> name("v1_21_R5", "NmsV1_21_R5");
-            case "1.21.9", "1.21.10" -> name("v1_21_R6", "NmsV1_21_R6");
-            case "1.21.11" -> name("v1_21_R7", "NmsV1_21_R7");
-            default -> throw new IllegalStateException("Unsupported server version: " + version);
-        };
+        if (version.startsWith("26.3")) return name("v26_3_R1", "NmsV26_3_R1");
+        throw new IllegalStateException("Unsupported server version: " + version + "; only 26.3 is supported");
     }
 
     private static String name(String packageName, String className) {

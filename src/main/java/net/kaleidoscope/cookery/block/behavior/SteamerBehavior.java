@@ -6,7 +6,7 @@ import net.kaleidoscope.cookery.util.ConsoleMessages;
 
 import net.momirealms.craftengine.bukkit.block.behavior.BukkitBlockBehavior;
 import net.momirealms.craftengine.bukkit.block.behavior.BukkitFallableBlock;
-import net.momirealms.craftengine.bukkit.nms.FastNMS;
+import net.momirealms.craftengine.bukkit.plugin.injector.FallingBlockEntityGenerator;
 import net.momirealms.craftengine.bukkit.util.BlockStateUtils;
 import net.momirealms.craftengine.bukkit.util.DirectionUtils;
 import net.momirealms.craftengine.bukkit.util.ItemStackUtils;
@@ -445,7 +445,7 @@ public final class SteamerBehavior extends BukkitBlockBehavior implements Entity
             }
         }
 
-        Object fallingBlockEntity = FastNMS.INSTANCE.createInjectedFallingBlockEntity(level, blockPos, blockState);
+        Object fallingBlockEntity = FallingBlockEntityGenerator.fall(level, blockPos, blockState);
         PendingData pending = new PendingData(tag, customState, this.controllerId);
         if (fallingBlockEntity == null) {
             dropSteamer(level, blockPos, pending);
