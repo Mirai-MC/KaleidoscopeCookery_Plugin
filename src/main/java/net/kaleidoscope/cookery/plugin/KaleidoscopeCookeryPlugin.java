@@ -45,6 +45,8 @@ import net.momirealms.antigrieflib.AntiGriefLib;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
+import net.kaleidoscope.cookery.advancement.AdvancementTracker;
+import net.kaleidoscope.cookery.advancement.AdvancementPlacementListener;
 
 public final class KaleidoscopeCookeryPlugin extends JavaPlugin {
     // bStats 插件 ID：https://bstats.org/plugin/bukkit/KaleidoscopeCookeryPlugin/32444
@@ -57,6 +59,7 @@ public final class KaleidoscopeCookeryPlugin extends JavaPlugin {
     private AntiGriefLib antiGrief;
     private Metrics metrics;
     private Object placeholderExpansion;
+    private volatile AdvancementTracker advancementTracker;
 
     @Override
     public void onEnable() {
@@ -105,6 +108,8 @@ public final class KaleidoscopeCookeryPlugin extends JavaPlugin {
         BlockBehaviors.register();
         ItemBehaviors.register();
         FurnitureBehaviors.register();
+        getServer().getPluginManager().registerEvents(new AdvancementPlacementListener(), this);
+        setupAdvancements();
         setupPlaceholders();
         setupMetrics();
         getLogger().info(ConsoleMessages.t("plugin.enabled"));
@@ -112,6 +117,7 @@ public final class KaleidoscopeCookeryPlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        closeAdvancements();
         FoliaUtil.shutdown();
         // 关服时把还在垃圾桶里的玩家放出来 还原模式与头盔
         if (FoliaUtil.isFolia()) {
@@ -175,6 +181,50 @@ public final class KaleidoscopeCookeryPlugin extends JavaPlugin {
             }
         } catch (ReflectiveOperationException | LinkageError e) {
             getLogger().warning("Failed to register PlaceholderAPI expansion: " + e.getMessage());
+        }
+    }
+
+    private void setupAdvancements() {
+        if (advancementTracker != null || !getConfig().getBoolean("advancements.enabled", true)
+                || !getServer().getPluginManager().isPluginEnabled("UltimateAdvancementAPI")) return;
+        try {
+            advancementTracker = (AdvancementTracker) Class.forName(
+                    "net.kaleidoscope.cookery.advancement.UltimateAdvancementIntegration", true, getClassLoader())
+                    .getConstructor(KaleidoscopeCookeryPlugin.class).newInstance(this);
+        } catch (ReflectiveOperationException | LinkageError exception) {
+            getLogger().warning("无法接入 UltimateAdvancementAPI：" + exception.getMessage());
+        }
+    }
+
+    public void reloadAdvancements() {
+        if (!getConfig().getBoolean("advancements.enabled", true)) {
+            closeAdvancements();
+            return;
+        }
+        setupAdvancements();
+        if (advancementTracker != null) {
+            try {
+                advancementTracker.reload();
+            } catch (RuntimeException | LinkageError exception) {
+                getLogger().log(java.util.logging.Level.WARNING, "森罗厨房成就注册失败", exception);
+                closeAdvancements();
+            }
+        }
+    }
+
+    public void recordAdvancementEvent(org.bukkit.entity.Player player, String event) {
+        AdvancementTracker tracker = advancementTracker;
+        if (tracker != null) tracker.recordEvent(player, event);
+    }
+
+    private void closeAdvancements() {
+        AdvancementTracker tracker = advancementTracker;
+        advancementTracker = null;
+        if (tracker != null) {
+            try { tracker.close(); }
+            catch (RuntimeException | LinkageError exception) {
+                getLogger().warning("关闭成就集成失败：" + exception.getMessage());
+            }
         }
     }
 

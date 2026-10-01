@@ -1,5 +1,7 @@
 package net.kaleidoscope.cookery.item.listener;
 
+import net.kaleidoscope.cookery.api.KaleidoscopeAdvancements;
+
 import net.kaleidoscope.cookery.item.ItemKeys;
 import net.kaleidoscope.cookery.item.ItemMatch;
 import net.kaleidoscope.cookery.util.InteractGuard;
@@ -54,6 +56,7 @@ public final class CaterpillarListener implements Listener {
                 1.0f + (ThreadLocalRandom.current().nextFloat() - ThreadLocalRandom.current().nextFloat()) * 0.2f);
 
         InventoryUtils.shrinkHeld(player, held, 1);
+        KaleidoscopeAdvancements.recordEvent(player, "use_caterpillar_feed_chicken");
         player.swingHand(hand);
         event.setCancelled(true);
     }

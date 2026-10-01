@@ -1,4 +1,6 @@
 package net.kaleidoscope.cookery.block.behavior;
+
+import net.kaleidoscope.cookery.api.KaleidoscopeAdvancements;
 import net.kaleidoscope.cookery.plugin.KaleidoscopeCookeryPlugin;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
@@ -179,6 +181,7 @@ public final class StockpotBehavior extends BukkitBlockBehavior implements Entit
             if (controller.addLid(itemInHand)) {
                 InventoryUtils.shrinkHeld(player, itemInHand, 1);
                 updateLidState(context, state, true);
+                KaleidoscopeAdvancements.recordEvent(player, "use_lid_on_stockpot");
                 player.swingHand(hand);
                 if (controller.stage() == StockpotStage.PUT_INGREDIENT && !controller.ingredients().isEmpty()) {
                     player.sendActionBar(Localization.component(MessageKeys.STOCKPOT_START_STEWING));
@@ -212,6 +215,7 @@ public final class StockpotBehavior extends BukkitBlockBehavior implements Entit
         // 放入汤底
         if (SoupBaseRegistry.instance().isSoupBase(itemInHand.id())) {
             if (controller.addSoupBase(itemInHand.id(), HeatSourceUtils.isHeatSourceBelow(context))) {
+                KaleidoscopeAdvancements.recordEvent(player, "put_soup_base_in_stockpot");
                 InventoryUtils.shrinkHeld(player, itemInHand, 1);
                 InventoryUtils.giveOrHold(player, hand, InventoryUtils.createOrEmpty(ItemKeys.BUCKET));
                 player.swingHand(hand);

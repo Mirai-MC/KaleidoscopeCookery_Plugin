@@ -44,6 +44,7 @@ public final class CraftEngineRegistryCheckListener implements Listener {
         // 顺带重读 config.yml 的菜单外观 改完图标标题不必重启
         plugin.reloadConfig();
         RecipeMenuConfig.load();
+        plugin.reloadAdvancements();
         checkLoadedBlocks(event.isFirstReload());
     }
 

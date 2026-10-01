@@ -6,6 +6,13 @@
 console:
   language: zh_cn
 
+# 安装 UltimateAdvancementAPI（本地 Pro 版）后启用森罗厨房成就。
+# 名称和条件对齐森罗物语 1.6.0；尚未移植的玩法自动隐藏。
+# 修改后执行 /ce reload all。disabled 使用模组节点名，例如 [dangerous_chef]。
+advancements:
+  enabled: true
+  disabled: []
+
 # 食谱菜单外观（/kcrecipe 打开的那套界面）
 # 下面所有项都可以整段删掉或留空，删掉即使用内置默认值。
 # 改完执行 /ce reload all 即可生效，不用重启。

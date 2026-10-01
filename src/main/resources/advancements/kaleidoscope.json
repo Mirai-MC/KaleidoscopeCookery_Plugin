@@ -1,0 +1,1353 @@
+{
+  "source": "https://github.com/KaleidoscopeMods/KaleidoscopeCookery",
+  "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+  "modVersion": "1.6.0-forge+mc1.20.1",
+  "advancements": [
+    {
+      "id": "add_broth",
+      "parent": "stockpot",
+      "icon": "minecraft:lava_bucket",
+      "frame": "task",
+      "hidden": false,
+      "showToast": true,
+      "announceChat": true,
+      "titleKey": "advancements.kaleidoscope_cookery.add_broth.title",
+      "title": "加汤底！",
+      "descriptionKey": "advancements.kaleidoscope_cookery.add_broth.description",
+      "description": "制作不同风味的汤首先需要加入不同的汤底！",
+      "unsupportedReason": null,
+      "criteria": {
+        "put_soup_base_in_stockpot": {
+          "type": "event",
+          "items": [
+            "kaleidoscopecookery:stockpot"
+          ],
+          "entities": [],
+          "event": "put_soup_base_in_stockpot"
+        }
+      },
+      "requirements": [
+        [
+          "put_soup_base_in_stockpot"
+        ]
+      ]
+    },
+    {
+      "id": "add_oil",
+      "parent": "pot",
+      "icon": "kaleidoscopecookery:oil",
+      "frame": "task",
+      "hidden": false,
+      "showToast": true,
+      "announceChat": true,
+      "titleKey": "advancements.kaleidoscope_cookery.add_oil.title",
+      "title": "加油！",
+      "descriptionKey": "advancements.kaleidoscope_cookery.add_oil.description",
+      "description": "将油脂加入炒锅，当然也可以使用锅铲从搪瓷盆子挖一勺油脂加入锅里，开始烹饪！",
+      "unsupportedReason": null,
+      "criteria": {
+        "put_oil_in_pot": {
+          "type": "event",
+          "items": [
+            "kaleidoscopecookery:pot"
+          ],
+          "entities": [],
+          "event": "put_oil_in_pot"
+        }
+      },
+      "requirements": [
+        [
+          "put_oil_in_pot"
+        ]
+      ]
+    },
+    {
+      "id": "apprentice_chef",
+      "parent": "make_soup",
+      "icon": "kaleidoscopecookery:borscht",
+      "frame": "goal",
+      "hidden": false,
+      "showToast": true,
+      "announceChat": true,
+      "titleKey": "advancements.kaleidoscope_cookery.apprentice_chef.title",
+      "title": "见习厨师",
+      "descriptionKey": "advancements.kaleidoscope_cookery.apprentice_chef.description",
+      "description": "获取一碗罗宋汤",
+      "unsupportedReason": null,
+      "criteria": {
+        "has_borscht": {
+          "type": "inventory",
+          "items": [
+            "kaleidoscopecookery:borscht"
+          ],
+          "entities": []
+        }
+      },
+      "requirements": [
+        [
+          "has_borscht"
+        ]
+      ]
+    },
+    {
+      "id": "baozi",
+      "parent": "steamer",
+      "icon": "kaleidoscopecookery:baozi",
+      "frame": "goal",
+      "hidden": false,
+      "showToast": true,
+      "announceChat": true,
+      "titleKey": "advancements.kaleidoscope_cookery.baozi.title",
+      "title": "肉包打狗，有去无回！",
+      "descriptionKey": "advancements.kaleidoscope_cookery.baozi.description",
+      "description": "潜行并抛出一个蒸包击中狼，使其回血",
+      "unsupportedReason": "插件尚未实现投掷肉包喂狗",
+      "criteria": {
+        "meat_buns_beat_dogs": {
+          "type": "event",
+          "items": [],
+          "entities": [],
+          "event": "meat_buns_beat_dogs"
+        }
+      },
+      "requirements": [
+        [
+          "meat_buns_beat_dogs"
+        ]
+      ]
+    },
+    {
+      "id": "burn_hand",
+      "parent": "stir_fry",
+      "icon": "minecraft:flint_and_steel",
+      "frame": "task",
+      "hidden": false,
+      "showToast": true,
+      "announceChat": true,
+      "titleKey": "advancements.kaleidoscope_cookery.burn_hand.title",
+      "title": "嘶！",
+      "descriptionKey": "advancements.kaleidoscope_cookery.burn_hand.description",
+      "description": "炒锅不会容忍你加错了食材，并给予从锅里拿回食材的你一点惩罚",
+      "unsupportedReason": null,
+      "criteria": {
+        "hurt_when_takeout_from_pot": {
+          "type": "event",
+          "items": [
+            "kaleidoscopecookery:pot"
+          ],
+          "entities": [],
+          "event": "hurt_when_takeout_from_pot"
+        }
+      },
+      "requirements": [
+        [
+          "hurt_when_takeout_from_pot"
+        ]
+      ]
+    },
+    {
+      "id": "burn_hand_soup",
+      "parent": "make_soup",
+      "icon": "minecraft:flint_and_steel",
+      "frame": "task",
+      "hidden": false,
+      "showToast": true,
+      "announceChat": true,
+      "titleKey": "advancements.kaleidoscope_cookery.burn_hand_soup.title",
+      "title": "烫烫烫！",
+      "descriptionKey": "advancements.kaleidoscope_cookery.burn_hand_soup.description",
+      "description": "加了熔岩汤底的汤锅不会容忍你加错了食材，并给予从锅里拿回食材的你一点惩罚",
+      "unsupportedReason": null,
+      "criteria": {
+        "hurt_when_takeout_from_stockpot": {
+          "type": "event",
+          "items": [
+            "kaleidoscopecookery:stockpot"
+          ],
+          "entities": [],
+          "event": "hurt_when_takeout_from_stockpot"
+        }
+      },
+      "requirements": [
+        [
+          "hurt_when_takeout_from_stockpot"
+        ]
+      ]
+    },
+    {
+      "id": "caterpillar",
+      "parent": "tomato_seed",
+      "icon": "kaleidoscopecookery:caterpillar",
+      "frame": "task",
+      "hidden": false,
+      "showToast": true,
+      "announceChat": true,
+      "titleKey": "advancements.kaleidoscope_cookery.caterpillar.title",
+      "title": "猪儿虫！",
+      "descriptionKey": "advancements.kaleidoscope_cookery.caterpillar.description",
+      "description": "总会在田间发现这些胖乎乎的家伙",
+      "unsupportedReason": null,
+      "criteria": {
+        "has_caterpillar": {
+          "type": "inventory",
+          "items": [
+            "kaleidoscopecookery:caterpillar"
+          ],
+          "entities": []
+        }
+      },
+      "requirements": [
+        [
+          "has_caterpillar"
+        ]
+      ]
+    },
+    {
+      "id": "chopping_board",
+      "parent": "iron_knife",
+      "icon": "kaleidoscopecookery:chopping_board",
+      "frame": "task",
+      "hidden": false,
+      "showToast": true,
+      "announceChat": true,
+      "titleKey": "advancements.kaleidoscope_cookery.chopping_board.title",
+      "title": "咣！咣！咣！",
+      "descriptionKey": "advancements.kaleidoscope_cookery.chopping_board.description",
+      "description": "使用菜刀在菜板上制备新的食材",
+      "unsupportedReason": null,
+      "criteria": {
+        "use_chopping_board": {
+          "type": "event",
+          "items": [
+            "kaleidoscopecookery:chopping_board"
+          ],
+          "entities": [],
+          "event": "use_chopping_board"
+        }
+      },
+      "requirements": [
+        [
+          "use_chopping_board"
+        ]
+      ]
+    },
+    {
+      "id": "dangerous_chef",
+      "parent": "oil",
+      "icon": "kaleidoscopecookery:oil",
+      "frame": "challenge",
+      "hidden": true,
+      "showToast": true,
+      "announceChat": true,
+      "titleKey": "advancements.kaleidoscope_cookery.dangerous_chef.title",
+      "title": "危险的厨子！",
+      "descriptionKey": "advancements.kaleidoscope_cookery.dangerous_chef.description",
+      "description": "使用菜刀击杀猪灵蛮兵",
+      "unsupportedReason": null,
+      "criteria": {
+        "kill_piglin_brute": {
+          "type": "kill",
+          "items": [
+            "kaleidoscopecookery:iron_kitchen_knife",
+            "kaleidoscopecookery:gold_kitchen_knife",
+            "kaleidoscopecookery:diamond_kitchen_knife",
+            "kaleidoscopecookery:netherite_kitchen_knife"
+          ],
+          "entities": [
+            "minecraft:piglin_brute"
+          ]
+        }
+      },
+      "requirements": [
+        [
+          "kill_piglin_brute"
+        ]
+      ]
+    },
+    {
+      "id": "dark_cuisine",
+      "parent": "stir_fry",
+      "icon": "kaleidoscopecookery:suspicious_stir_fry",
+      "frame": "task",
+      "hidden": false,
+      "showToast": true,
+      "announceChat": true,
+      "titleKey": "advancements.kaleidoscope_cookery.dark_cuisine.title",
+      "title": "黑暗料理",
+      "descriptionKey": "advancements.kaleidoscope_cookery.dark_cuisine.description",
+      "description": "厨艺有待进步……",
+      "unsupportedReason": null,
+      "criteria": {
+        "has_dark_cuisine": {
+          "type": "inventory",
+          "items": [
+            "kaleidoscopecookery:dark_cuisine"
+          ],
+          "entities": []
+        },
+        "has_suspicious_stew": {
+          "type": "inventory",
+          "items": [
+            "kaleidoscopecookery:suspicious_stir_fry"
+          ],
+          "entities": []
+        }
+      },
+      "requirements": [
+        [
+          "has_suspicious_stew",
+          "has_dark_cuisine"
+        ]
+      ]
+    },
+    {
+      "id": "dough",
+      "parent": "millstone",
+      "icon": "kaleidoscopecookery:raw_dough",
+      "frame": "task",
+      "hidden": false,
+      "showToast": true,
+      "announceChat": true,
+      "titleKey": "advancements.kaleidoscope_cookery.dough.title",
+      "title": "拉拉拉拉拉拉面",
+      "descriptionKey": "advancements.kaleidoscope_cookery.dough.description",
+      "description": "将面团拉扯成面条",
+      "unsupportedReason": "插件尚未实现手动拉面",
+      "criteria": {
+        "pull_the_dough": {
+          "type": "event",
+          "items": [],
+          "entities": [],
+          "event": "pull_the_dough"
+        }
+      },
+      "requirements": [
+        [
+          "pull_the_dough"
+        ]
+      ]
+    },
+    {
+      "id": "dual_chili",
+      "parent": "tomato_seed",
+      "icon": "kaleidoscopecookery:red_chili",
+      "frame": "task",
+      "hidden": false,
+      "showToast": true,
+      "announceChat": true,
+      "titleKey": "advancements.kaleidoscope_cookery.dual_chili.title",
+      "title": "绝代双椒",
+      "descriptionKey": "advancements.kaleidoscope_cookery.dual_chili.description",
+      "description": "收获到青辣椒和红辣椒！",
+      "unsupportedReason": null,
+      "criteria": {
+        "has_green_chili": {
+          "type": "inventory",
+          "items": [
+            "kaleidoscopecookery:green_chili"
+          ],
+          "entities": []
+        },
+        "has_red_chili": {
+          "type": "inventory",
+          "items": [
+            "kaleidoscopecookery:red_chili"
+          ],
+          "entities": []
+        }
+      },
+      "requirements": [
+        [
+          "has_red_chili"
+        ],
+        [
+          "has_green_chili"
+        ]
+      ]
+    },
+    {
+      "id": "farmer_set",
+      "parent": "straw_hat",
+      "icon": "kaleidoscopecookery:farmer_chest_plate",
+      "frame": "task",
+      "hidden": false,
+      "showToast": true,
+      "announceChat": true,
+      "titleKey": "advancements.kaleidoscope_cookery.farmer_set.title",
+      "title": "农夫乐事",
+      "descriptionKey": "advancements.kaleidoscope_cookery.farmer_set.description",
+      "description": "将农夫套装穿戴整齐，大幅提高在水中插秧的速度",
+      "unsupportedReason": null,
+      "criteria": {
+        "has_farmer_boots": {
+          "type": "inventory",
+          "items": [
+            "kaleidoscopecookery:farmer_boots"
+          ],
+          "entities": []
+        },
+        "has_farmer_chestplate": {
+          "type": "inventory",
+          "items": [
+            "kaleidoscopecookery:farmer_chest_plate"
+          ],
+          "entities": []
+        },
+        "has_farmer_leggings": {
+          "type": "inventory",
+          "items": [
+            "kaleidoscopecookery:farmer_leggings"
+          ],
+          "entities": []
+        },
+        "has_straw_hat": {
+          "type": "inventory",
+          "items": [
+            "kaleidoscopecookery:straw_hat",
+            "kaleidoscopecookery:straw_hat_flower"
+          ],
+          "entities": []
+        }
+      },
+      "requirements": [
+        [
+          "has_straw_hat"
+        ],
+        [
+          "has_farmer_chestplate"
+        ],
+        [
+          "has_farmer_leggings"
+        ],
+        [
+          "has_farmer_boots"
+        ]
+      ]
+    },
+    {
+      "id": "feed_chicken",
+      "parent": "caterpillar",
+      "icon": "kaleidoscopecookery:caterpillar",
+      "frame": "task",
+      "hidden": false,
+      "showToast": true,
+      "announceChat": true,
+      "titleKey": "advancements.kaleidoscope_cookery.feed_chicken.title",
+      "title": "高级蛋白质",
+      "descriptionKey": "advancements.kaleidoscope_cookery.feed_chicken.description",
+      "description": "使用猪儿虫喂小鸡",
+      "unsupportedReason": null,
+      "criteria": {
+        "use_caterpillar_feed_chicken": {
+          "type": "event",
+          "items": [
+            "kaleidoscopecookery:caterpillar"
+          ],
+          "entities": [],
+          "event": "use_caterpillar_feed_chicken"
+        }
+      },
+      "requirements": [
+        [
+          "use_caterpillar_feed_chicken"
+        ]
+      ]
+    },
+    {
+      "id": "fish_rice",
+      "parent": "rice_panicle",
+      "icon": "minecraft:salmon",
+      "frame": "goal",
+      "hidden": false,
+      "showToast": true,
+      "announceChat": true,
+      "titleKey": "advancements.kaleidoscope_cookery.fish_rice.title",
+      "title": "鱼稻共生",
+      "descriptionKey": "advancements.kaleidoscope_cookery.fish_rice.description",
+      "description": "通过在水稻中养鱼来加速水稻生长速度！",
+      "unsupportedReason": "插件尚未实现鱼稻共生",
+      "criteria": {
+        "place_fish_in_rice_field": {
+          "type": "event",
+          "items": [],
+          "entities": [],
+          "event": "place_fish_in_rice_field"
+        }
+      },
+      "requirements": [
+        [
+          "place_fish_in_rice_field"
+        ]
+      ]
+    },
+    {
+      "id": "flower_straw_hat",
+      "parent": "straw_hat",
+      "icon": "kaleidoscopecookery:straw_hat_flower",
+      "frame": "task",
+      "hidden": false,
+      "showToast": true,
+      "announceChat": true,
+      "titleKey": "advancements.kaleidoscope_cookery.flower_straw_hat.title",
+      "title": "SAN值回复中……",
+      "descriptionKey": "advancements.kaleidoscope_cookery.flower_straw_hat.description",
+      "description": "合成缀花草帽，它很好看，虽然没什么特别，但它真的很好看",
+      "unsupportedReason": null,
+      "criteria": {
+        "has_flower_straw_hat": {
+          "type": "inventory",
+          "items": [
+            "kaleidoscopecookery:straw_hat_flower"
+          ],
+          "entities": []
+        }
+      },
+      "requirements": [
+        [
+          "has_flower_straw_hat"
+        ]
+      ]
+    },
+    {
+      "id": "iron_hoe",
+      "parent": "tomato_seed",
+      "icon": "minecraft:iron_hoe",
+      "frame": "task",
+      "hidden": false,
+      "showToast": true,
+      "announceChat": true,
+      "titleKey": "advancements.kaleidoscope_cookery.iron_hoe.title",
+      "title": "精耕细作",
+      "descriptionKey": "advancements.kaleidoscope_cookery.iron_hoe.description",
+      "description": "使用锄头在水中开垦水田，进行水稻插秧",
+      "unsupportedReason": null,
+      "criteria": {
+        "use_hoe_on_water_field": {
+          "type": "event",
+          "items": [],
+          "entities": [],
+          "event": "use_hoe_on_water_field"
+        }
+      },
+      "requirements": [
+        [
+          "use_hoe_on_water_field"
+        ]
+      ]
+    },
+    {
+      "id": "iron_knife",
+      "parent": "root",
+      "icon": "kaleidoscopecookery:iron_kitchen_knife",
+      "frame": "task",
+      "hidden": false,
+      "showToast": true,
+      "announceChat": true,
+      "titleKey": "advancements.kaleidoscope_cookery.iron_knife.title",
+      "title": "功夫再高也怕菜刀",
+      "descriptionKey": "advancements.kaleidoscope_cookery.iron_knife.description",
+      "description": "获取第一把菜刀！",
+      "unsupportedReason": null,
+      "criteria": {
+        "has_iron_knife": {
+          "type": "inventory",
+          "items": [
+            "kaleidoscopecookery:iron_kitchen_knife",
+            "kaleidoscopecookery:gold_kitchen_knife",
+            "kaleidoscopecookery:diamond_kitchen_knife",
+            "kaleidoscopecookery:netherite_kitchen_knife"
+          ],
+          "entities": []
+        }
+      },
+      "requirements": [
+        [
+          "has_iron_knife"
+        ]
+      ]
+    },
+    {
+      "id": "make_soup",
+      "parent": "add_broth",
+      "icon": "kaleidoscopecookery:stockpot_lid",
+      "frame": "task",
+      "hidden": false,
+      "showToast": true,
+      "announceChat": true,
+      "titleKey": "advancements.kaleidoscope_cookery.make_soup.title",
+      "title": "煲汤！",
+      "descriptionKey": "advancements.kaleidoscope_cookery.make_soup.description",
+      "description": "向锅里添加完食材后盖上锅盖进行煲汤，掀开盖子汤煲好后使用碗来盛出！",
+      "unsupportedReason": null,
+      "criteria": {
+        "use_lid_on_stockpot": {
+          "type": "event",
+          "items": [
+            "kaleidoscopecookery:stockpot"
+          ],
+          "entities": [],
+          "event": "use_lid_on_stockpot"
+        }
+      },
+      "requirements": [
+        [
+          "use_lid_on_stockpot"
+        ]
+      ]
+    },
+    {
+      "id": "millstone",
+      "parent": "root",
+      "icon": "kaleidoscopecookery:new_millstone",
+      "frame": "task",
+      "hidden": false,
+      "showToast": true,
+      "announceChat": true,
+      "titleKey": "advancements.kaleidoscope_cookery.millstone.title",
+      "title": "996",
+      "descriptionKey": "advancements.kaleidoscope_cookery.millstone.description",
+      "description": "骑着驴到磨盘上驱动磨盘",
+      "unsupportedReason": null,
+      "criteria": {
+        "drive_the_millstone": {
+          "type": "event",
+          "items": [
+            "kaleidoscopecookery:new_millstone"
+          ],
+          "entities": [],
+          "event": "drive_the_millstone"
+        }
+      },
+      "requirements": [
+        [
+          "drive_the_millstone"
+        ]
+      ]
+    },
+    {
+      "id": "netherite_knife",
+      "parent": "iron_knife",
+      "icon": "kaleidoscopecookery:netherite_kitchen_knife",
+      "frame": "goal",
+      "hidden": false,
+      "showToast": true,
+      "announceChat": true,
+      "titleKey": "advancements.kaleidoscope_cookery.netherite_knife.title",
+      "title": "好钢用在刀刃上",
+      "descriptionKey": "advancements.kaleidoscope_cookery.netherite_knife.description",
+      "description": "将菜刀升级至下界合金等级",
+      "unsupportedReason": null,
+      "criteria": {
+        "has_netherite_knife": {
+          "type": "inventory",
+          "items": [
+            "kaleidoscopecookery:netherite_kitchen_knife"
+          ],
+          "entities": []
+        }
+      },
+      "requirements": [
+        [
+          "has_netherite_knife"
+        ]
+      ]
+    },
+    {
+      "id": "nitrogen_100",
+      "parent": "root",
+      "icon": "minecraft:feather",
+      "frame": "goal",
+      "hidden": false,
+      "showToast": true,
+      "announceChat": true,
+      "titleKey": "advancements.kaleidoscope_cookery.nitrogen_100.title",
+      "title": "氮气加速",
+      "descriptionKey": "advancements.kaleidoscope_cookery.nitrogen_100.description",
+      "description": "在获得胀气效果的情况下爬升100格高度",
+      "unsupportedReason": "插件尚未实现氮气飞行",
+      "criteria": {
+        "climb_100": {
+          "type": "unsupported",
+          "items": [],
+          "entities": []
+        }
+      },
+      "requirements": [
+        [
+          "climb_100"
+        ]
+      ]
+    },
+    {
+      "id": "nitrogen_1000",
+      "parent": "nitrogen_300",
+      "icon": "minecraft:feather",
+      "frame": "goal",
+      "hidden": false,
+      "showToast": true,
+      "announceChat": true,
+      "titleKey": "advancements.kaleidoscope_cookery.nitrogen_1000.title",
+      "title": "反冲天体",
+      "descriptionKey": "advancements.kaleidoscope_cookery.nitrogen_1000.description",
+      "description": "在获得胀气效果的情况下爬升1000格高度",
+      "unsupportedReason": "插件尚未实现氮气飞行",
+      "criteria": {
+        "climb_1000": {
+          "type": "unsupported",
+          "items": [],
+          "entities": []
+        }
+      },
+      "requirements": [
+        [
+          "climb_1000"
+        ]
+      ]
+    },
+    {
+      "id": "nitrogen_300",
+      "parent": "nitrogen_100",
+      "icon": "minecraft:feather",
+      "frame": "goal",
+      "hidden": false,
+      "showToast": true,
+      "announceChat": true,
+      "titleKey": "advancements.kaleidoscope_cookery.nitrogen_300.title",
+      "title": "云层突破者",
+      "descriptionKey": "advancements.kaleidoscope_cookery.nitrogen_300.description",
+      "description": "在获得胀气效果的情况下爬升300格高度",
+      "unsupportedReason": "插件尚未实现氮气飞行",
+      "criteria": {
+        "climb_300": {
+          "type": "unsupported",
+          "items": [],
+          "entities": []
+        }
+      },
+      "requirements": [
+        [
+          "climb_300"
+        ]
+      ]
+    },
+    {
+      "id": "nitrogen_3000",
+      "parent": "nitrogen_1000",
+      "icon": "minecraft:feather",
+      "frame": "challenge",
+      "hidden": true,
+      "showToast": true,
+      "announceChat": true,
+      "titleKey": "advancements.kaleidoscope_cookery.nitrogen_3000.title",
+      "title": "近地轨道排放",
+      "descriptionKey": "advancements.kaleidoscope_cookery.nitrogen_3000.description",
+      "description": "在获得胀气效果的情况下爬升3000格高度",
+      "unsupportedReason": "插件尚未实现氮气飞行",
+      "criteria": {
+        "climb_3000": {
+          "type": "unsupported",
+          "items": [],
+          "entities": []
+        }
+      },
+      "requirements": [
+        [
+          "climb_3000"
+        ]
+      ]
+    },
+    {
+      "id": "oil",
+      "parent": "iron_knife",
+      "icon": "kaleidoscopecookery:oil",
+      "frame": "task",
+      "hidden": false,
+      "showToast": true,
+      "announceChat": true,
+      "titleKey": "advancements.kaleidoscope_cookery.oil.title",
+      "title": "油刃有余",
+      "descriptionKey": "advancements.kaleidoscope_cookery.oil.description",
+      "description": "使用菜刀击杀猪、猪灵、疣猪兽来获取油脂",
+      "unsupportedReason": null,
+      "criteria": {
+        "kill_pig": {
+          "type": "kill",
+          "items": [
+            "kaleidoscopecookery:iron_kitchen_knife",
+            "kaleidoscopecookery:gold_kitchen_knife",
+            "kaleidoscopecookery:diamond_kitchen_knife",
+            "kaleidoscopecookery:netherite_kitchen_knife"
+          ],
+          "entities": [
+            "minecraft:pig",
+            "minecraft:piglin",
+            "minecraft:piglin_brute",
+            "minecraft:hoglin",
+            "minecraft:zombified_piglin",
+            "minecraft:zoglin"
+          ]
+        }
+      },
+      "requirements": [
+        [
+          "kill_pig"
+        ]
+      ]
+    },
+    {
+      "id": "pot",
+      "parent": "stove",
+      "icon": "kaleidoscopecookery:pot",
+      "frame": "task",
+      "hidden": false,
+      "showToast": true,
+      "announceChat": true,
+      "titleKey": "advancements.kaleidoscope_cookery.pot.title",
+      "title": "煎炒第一步",
+      "descriptionKey": "advancements.kaleidoscope_cookery.pot.description",
+      "description": "合成炒锅，将它放在炉灶、营火等热源上方加热",
+      "unsupportedReason": null,
+      "criteria": {
+        "place_pot_on_heat_source": {
+          "type": "event",
+          "items": [
+            "kaleidoscopecookery:pot"
+          ],
+          "entities": [],
+          "event": "place_pot_on_heat_source"
+        }
+      },
+      "requirements": [
+        [
+          "place_pot_on_heat_source"
+        ]
+      ]
+    },
+    {
+      "id": "rice_panicle",
+      "parent": "iron_hoe",
+      "icon": "kaleidoscopecookery:rice_panicle",
+      "frame": "task",
+      "hidden": false,
+      "showToast": true,
+      "announceChat": true,
+      "titleKey": "advancements.kaleidoscope_cookery.rice_panicle.title",
+      "title": "禾下乘凉梦",
+      "descriptionKey": "advancements.kaleidoscope_cookery.rice_panicle.description",
+      "description": "收获的季节，愈发怀念老先生……",
+      "unsupportedReason": null,
+      "criteria": {
+        "has_rice_panicle": {
+          "type": "inventory",
+          "items": [
+            "kaleidoscopecookery:rice_panicle"
+          ],
+          "entities": []
+        }
+      },
+      "requirements": [
+        [
+          "has_rice_panicle"
+        ]
+      ]
+    },
+    {
+      "id": "root",
+      "parent": null,
+      "icon": "kaleidoscopecookery:pot",
+      "frame": "task",
+      "hidden": false,
+      "showToast": true,
+      "announceChat": true,
+      "titleKey": "advancements.kaleidoscope_cookery.root.title",
+      "title": "森罗厨房",
+      "descriptionKey": "advancements.kaleidoscope_cookery.root.description",
+      "description": "给世界添一丝奇幻色彩！",
+      "unsupportedReason": null,
+      "criteria": {
+        "has_pot": {
+          "type": "inventory",
+          "items": [
+            "kaleidoscopecookery:stove",
+            "kaleidoscopecookery:pot",
+            "kaleidoscopecookery:stockpot",
+            "kaleidoscopecookery:stockpot_lid",
+            "kaleidoscopecookery:chopping_board",
+            "kaleidoscopecookery:kitchenware_racks",
+            "kaleidoscopecookery:bamboo_tray",
+            "kaleidoscopecookery:shawarma_spit",
+            "kaleidoscopecookery:new_millstone",
+            "kaleidoscopecookery:steamer",
+            "kaleidoscopecookery:teapot",
+            "kaleidoscopecookery:empty_cup",
+            "kaleidoscopecookery:tieguanyin_tea_bag",
+            "kaleidoscopecookery:biluochun_tea_bag",
+            "kaleidoscopecookery:oolong_tea_bag",
+            "kaleidoscopecookery:sakura_fubuki_tea_bag",
+            "kaleidoscopecookery:barley_tea_bag",
+            "kaleidoscopecookery:butter_tea_bag",
+            "kaleidoscopecookery:clay_pot_milk_tea",
+            "kaleidoscopecookery:trash_can",
+            "kaleidoscopecookery:oil",
+            "kaleidoscopecookery:oil_pot",
+            "kaleidoscopecookery:oil_block",
+            "kaleidoscopecookery:enamel_basin",
+            "kaleidoscopecookery:chili_ristra",
+            "kaleidoscopecookery:strung_mushrooms",
+            "kaleidoscopecookery:straw_block",
+            "kaleidoscopecookery:fruit_basket",
+            "kaleidoscopecookery:scarecrow",
+            "kaleidoscopecookery:recipe_item",
+            "kaleidoscopecookery:transmutation_lunch_bag",
+            "kaleidoscopecookery:tea_banner",
+            "kaleidoscopecookery:iron_kitchen_knife",
+            "kaleidoscopecookery:gold_kitchen_knife",
+            "kaleidoscopecookery:diamond_kitchen_knife",
+            "kaleidoscopecookery:netherite_kitchen_knife",
+            "kaleidoscopecookery:kitchen_shovel",
+            "kaleidoscopecookery:sickle",
+            "kaleidoscopecookery:straw_hat",
+            "kaleidoscopecookery:straw_hat_flower",
+            "kaleidoscopecookery:farmer_chest_plate",
+            "kaleidoscopecookery:farmer_leggings",
+            "kaleidoscopecookery:farmer_boots",
+            "kaleidoscopecookery:tomato_seed",
+            "kaleidoscopecookery:chili_seed",
+            "kaleidoscopecookery:lettuce_seed",
+            "kaleidoscopecookery:rice",
+            "kaleidoscopecookery:wild_rice",
+            "kaleidoscopecookery:tea_seed",
+            "kaleidoscopecookery:cook_stool_oak",
+            "kaleidoscopecookery:cook_stool_spruce",
+            "kaleidoscopecookery:cook_stool_acacia",
+            "kaleidoscopecookery:cook_stool_bamboo",
+            "kaleidoscopecookery:cook_stool_birch",
+            "kaleidoscopecookery:cook_stool_cherry",
+            "kaleidoscopecookery:cook_stool_crimson",
+            "kaleidoscopecookery:cook_stool_dark_oak",
+            "kaleidoscopecookery:cook_stool_jungle",
+            "kaleidoscopecookery:cook_stool_mangrove",
+            "kaleidoscopecookery:cook_stool_warped",
+            "kaleidoscopecookery:chair_oak",
+            "kaleidoscopecookery:chair_spruce",
+            "kaleidoscopecookery:chair_acacia",
+            "kaleidoscopecookery:chair_bamboo",
+            "kaleidoscopecookery:chair_birch",
+            "kaleidoscopecookery:chair_cherry",
+            "kaleidoscopecookery:chair_crimson",
+            "kaleidoscopecookery:chair_dark_oak",
+            "kaleidoscopecookery:chair_jungle",
+            "kaleidoscopecookery:chair_mangrove",
+            "kaleidoscopecookery:chair_warped",
+            "kaleidoscopecookery:table_oak",
+            "kaleidoscopecookery:table_spruce",
+            "kaleidoscopecookery:table_acacia",
+            "kaleidoscopecookery:table_bamboo",
+            "kaleidoscopecookery:table_birch",
+            "kaleidoscopecookery:table_cherry",
+            "kaleidoscopecookery:table_crimson",
+            "kaleidoscopecookery:table_dark_oak",
+            "kaleidoscopecookery:table_jungle",
+            "kaleidoscopecookery:table_mangrove",
+            "kaleidoscopecookery:table_warped",
+            "kaleidoscopecookery:long_bench",
+            "kaleidoscopecookery:red_lantern",
+            "kaleidoscopecookery:eight_immortals_table",
+            "kaleidoscopecookery:tomato",
+            "kaleidoscopecookery:red_chili",
+            "kaleidoscopecookery:green_chili",
+            "kaleidoscopecookery:lettuce",
+            "kaleidoscopecookery:rice_panicle",
+            "kaleidoscopecookery:fresh_tea_leaves",
+            "kaleidoscopecookery:dried_tea_leaves",
+            "kaleidoscopecookery:caterpillar",
+            "kaleidoscopecookery:flour",
+            "kaleidoscopecookery:raw_dough",
+            "kaleidoscopecookery:raw_noodles",
+            "kaleidoscopecookery:stuffed_dough_food",
+            "kaleidoscopecookery:raw_zongzi",
+            "kaleidoscopecookery:raw_bamboo_tube_rice",
+            "kaleidoscopecookery:fried_egg",
+            "kaleidoscopecookery:tea_egg",
+            "kaleidoscopecookery:donkey_burger",
+            "kaleidoscopecookery:baozi",
+            "kaleidoscopecookery:shengjian_mantou",
+            "kaleidoscopecookery:dumpling",
+            "kaleidoscopecookery:samsa",
+            "kaleidoscopecookery:mantou",
+            "kaleidoscopecookery:meat_pie",
+            "kaleidoscopecookery:qingtuan",
+            "kaleidoscopecookery:sticky_candy",
+            "kaleidoscopecookery:sticky_rice_cake",
+            "kaleidoscopecookery:zongzi",
+            "kaleidoscopecookery:bamboo_tube_rice",
+            "kaleidoscopecookery:cooked_rice",
+            "kaleidoscopecookery:egg_fried_rice",
+            "kaleidoscopecookery:scramble_egg_with_tomatoes",
+            "kaleidoscopecookery:scramble_egg_with_tomatoes_rice_bowl",
+            "kaleidoscopecookery:braised_beef",
+            "kaleidoscopecookery:braised_beef_rice_bowl",
+            "kaleidoscopecookery:stir_fried_pork_with_peppers",
+            "kaleidoscopecookery:stir_fried_pork_with_peppers_rice_bowl",
+            "kaleidoscopecookery:sweet_and_sour_pork",
+            "kaleidoscopecookery:sweet_and_sour_pork_rice_bowl",
+            "kaleidoscopecookery:fish_flavored_shredded_pork",
+            "kaleidoscopecookery:fish_flavored_shredded_pork_rice_bowl",
+            "kaleidoscopecookery:pork_bone_soup",
+            "kaleidoscopecookery:seafood_miso_soup",
+            "kaleidoscopecookery:fearsome_thick_soup",
+            "kaleidoscopecookery:lamb_and_radish_soup",
+            "kaleidoscopecookery:braised_beef_with_potatoes",
+            "kaleidoscopecookery:wild_mushroom_rabbit_soup",
+            "kaleidoscopecookery:pufferfish_soup",
+            "kaleidoscopecookery:borscht",
+            "kaleidoscopecookery:beef_meatball_soup",
+            "kaleidoscopecookery:chicken_and_mushroom_stew",
+            "kaleidoscopecookery:laba_congee",
+            "kaleidoscopecookery:beef_noodle",
+            "kaleidoscopecookery:hui_noodle",
+            "kaleidoscopecookery:udon_noodle",
+            "kaleidoscopecookery:hot_dry_noodles",
+            "kaleidoscopecookery:sashimi",
+            "kaleidoscopecookery:raw_lamb_chops",
+            "kaleidoscopecookery:raw_cow_offal",
+            "kaleidoscopecookery:raw_pork_belly",
+            "kaleidoscopecookery:raw_cut_small_meats",
+            "kaleidoscopecookery:raw_meatball",
+            "kaleidoscopecookery:cooked_lamb_chops",
+            "kaleidoscopecookery:cooked_cow_offal",
+            "kaleidoscopecookery:cooked_pork_belly",
+            "kaleidoscopecookery:cooked_cut_small_meats",
+            "kaleidoscopecookery:cooked_meatball",
+            "kaleidoscopecookery:cold_cut_ham_slices",
+            "kaleidoscopecookery:dark_cuisine",
+            "kaleidoscopecookery:suspicious_stir_fry",
+            "kaleidoscopecookery:slime_ball_meal",
+            "kaleidoscopecookery:fondant_pie",
+            "kaleidoscopecookery:dongpo_pork",
+            "kaleidoscopecookery:fondant_spider_eye",
+            "kaleidoscopecookery:chorus_fried_egg",
+            "kaleidoscopecookery:spicy_chicken",
+            "kaleidoscopecookery:pan_seared_knight_steak",
+            "kaleidoscopecookery:stargazy_pie",
+            "kaleidoscopecookery:sweet_and_sour_ender_pearls",
+            "kaleidoscopecookery:crystal_lamb_chop",
+            "kaleidoscopecookery:blaze_lamb_chop",
+            "kaleidoscopecookery:frost_lamb_chop",
+            "kaleidoscopecookery:nether_style_sashimi",
+            "kaleidoscopecookery:end_style_sashimi",
+            "kaleidoscopecookery:desert_style_sashimi",
+            "kaleidoscopecookery:tundra_style_sashimi",
+            "kaleidoscopecookery:cold_style_sashimi",
+            "kaleidoscopecookery:candied_potato",
+            "kaleidoscopecookery:stuffed_tiger_skin_pepper",
+            "kaleidoscopecookery:spicy_rabbit_head",
+            "kaleidoscopecookery:fried_caterpillar",
+            "kaleidoscopecookery:fried_spring_roll",
+            "kaleidoscopecookery:braised_pork_ribs",
+            "kaleidoscopecookery:cold_roasted_meat",
+            "kaleidoscopecookery:oil_splashed_fish",
+            "kaleidoscopecookery:dough_drop_soup",
+            "kaleidoscopecookery:four_joy_meatball_soup",
+            "kaleidoscopecookery:numbing_spicy_chicken",
+            "kaleidoscopecookery:spicy_blood_stew",
+            "kaleidoscopecookery:brown_mushroom_pot_soup",
+            "kaleidoscopecookery:red_mushroom_pot_soup",
+            "kaleidoscopecookery:warped_fungus_pot_soup",
+            "kaleidoscopecookery:crimson_fungus_pot_soup",
+            "kaleidoscopecookery:buddha_jumps_over_the_wall",
+            "kaleidoscopecookery:golden_salad",
+            "kaleidoscopecookery:mystery_tea",
+            "kaleidoscopecookery:barley_tea",
+            "kaleidoscopecookery:tieguanyin",
+            "kaleidoscopecookery:biluochun",
+            "kaleidoscopecookery:oolong",
+            "kaleidoscopecookery:butter_tea",
+            "kaleidoscopecookery:sakura_fubuki",
+            "kaleidoscopecookery:flower_tea",
+            "kaleidoscopecookery:shengjian_mantou_plate",
+            "kaleidoscopecookery:baozi_plate",
+            "kaleidoscopecookery:qingtuan_plate",
+            "kaleidoscopecookery:sticky_candy_plate",
+            "kaleidoscopecookery:sticky_rice_cake_plate",
+            "kaleidoscopecookery:zongzi_plate",
+            "kaleidoscopecookery:berry_platter",
+            "kaleidoscopecookery:apple_platter",
+            "kaleidoscopecookery:tomato_platter",
+            "kaleidoscopecookery:watermelon_platter",
+            "kaleidoscopecookery:chorus_fruit_platter"
+          ],
+          "entities": []
+        }
+      },
+      "requirements": [
+        [
+          "has_pot"
+        ]
+      ]
+    },
+    {
+      "id": "scarecrow",
+      "parent": "farmer_set",
+      "icon": "kaleidoscopecookery:scarecrow",
+      "frame": "task",
+      "hidden": false,
+      "showToast": true,
+      "announceChat": true,
+      "titleKey": "advancements.kaleidoscope_cookery.scarecrow.title",
+      "title": "麦田守望者",
+      "descriptionKey": "advancements.kaleidoscope_cookery.scarecrow.description",
+      "description": "使用稻草人来保护周围耕地",
+      "unsupportedReason": null,
+      "criteria": {
+        "place_scarecrow": {
+          "type": "event",
+          "items": [
+            "kaleidoscopecookery:scarecrow"
+          ],
+          "entities": [],
+          "event": "place_scarecrow"
+        }
+      },
+      "requirements": [
+        [
+          "place_scarecrow"
+        ]
+      ]
+    },
+    {
+      "id": "scarecrow_head",
+      "parent": "scarecrow",
+      "icon": "minecraft:skeleton_skull",
+      "frame": "task",
+      "hidden": false,
+      "showToast": true,
+      "announceChat": true,
+      "titleKey": "advancements.kaleidoscope_cookery.scarecrow_head.title",
+      "title": "接头艺术",
+      "descriptionKey": "advancements.kaleidoscope_cookery.scarecrow_head.description",
+      "description": "使用头颅来替换稻草人的南瓜头",
+      "unsupportedReason": null,
+      "criteria": {
+        "place_head_on_scarecrow": {
+          "type": "event",
+          "items": [
+            "kaleidoscopecookery:scarecrow"
+          ],
+          "entities": [],
+          "event": "place_head_on_scarecrow"
+        }
+      },
+      "requirements": [
+        [
+          "place_head_on_scarecrow"
+        ]
+      ]
+    },
+    {
+      "id": "steamer",
+      "parent": "dough",
+      "icon": "kaleidoscopecookery:steamer",
+      "frame": "task",
+      "hidden": false,
+      "showToast": true,
+      "announceChat": true,
+      "titleKey": "advancements.kaleidoscope_cookery.steamer.title",
+      "title": "蒸制第一步",
+      "descriptionKey": "advancements.kaleidoscope_cookery.steamer.description",
+      "description": "将蒸笼放置在热源上蒸制食物",
+      "unsupportedReason": null,
+      "criteria": {
+        "use_steamer": {
+          "type": "event",
+          "items": [
+            "kaleidoscopecookery:steamer"
+          ],
+          "entities": [],
+          "event": "use_steamer"
+        }
+      },
+      "requirements": [
+        [
+          "use_steamer"
+        ]
+      ]
+    },
+    {
+      "id": "stir_fry",
+      "parent": "add_oil",
+      "icon": "kaleidoscopecookery:kitchen_shovel",
+      "frame": "task",
+      "hidden": false,
+      "showToast": true,
+      "announceChat": true,
+      "titleKey": "advancements.kaleidoscope_cookery.stir_fry.title",
+      "title": "翻炒！",
+      "descriptionKey": "advancements.kaleidoscope_cookery.stir_fry.description",
+      "description": "加入食材后使用锅铲进行不断翻炒，当食材炒熟后使用碗来盛出！",
+      "unsupportedReason": null,
+      "criteria": {
+        "stir_fry_in_pot": {
+          "type": "event",
+          "items": [
+            "kaleidoscopecookery:pot"
+          ],
+          "entities": [],
+          "event": "stir_fry_in_pot"
+        }
+      },
+      "requirements": [
+        [
+          "stir_fry_in_pot"
+        ]
+      ]
+    },
+    {
+      "id": "stockpot",
+      "parent": "stove",
+      "icon": "kaleidoscopecookery:stockpot",
+      "frame": "task",
+      "hidden": false,
+      "showToast": true,
+      "announceChat": true,
+      "titleKey": "advancements.kaleidoscope_cookery.stockpot.title",
+      "title": "煲汤第一步",
+      "descriptionKey": "advancements.kaleidoscope_cookery.stockpot.description",
+      "description": "合成汤锅，将它放在炉灶、营火等热源上方加热",
+      "unsupportedReason": null,
+      "criteria": {
+        "place_stockpot_on_heat_source": {
+          "type": "event",
+          "items": [
+            "kaleidoscopecookery:stockpot"
+          ],
+          "entities": [],
+          "event": "place_stockpot_on_heat_source"
+        }
+      },
+      "requirements": [
+        [
+          "place_stockpot_on_heat_source"
+        ]
+      ]
+    },
+    {
+      "id": "stove",
+      "parent": "root",
+      "icon": "kaleidoscopecookery:stove",
+      "frame": "task",
+      "hidden": false,
+      "showToast": true,
+      "announceChat": true,
+      "titleKey": "advancements.kaleidoscope_cookery.stove.title",
+      "title": "起锅烧油",
+      "descriptionKey": "advancements.kaleidoscope_cookery.stove.description",
+      "description": "点燃一个炉灶，开始烹饪美食",
+      "unsupportedReason": null,
+      "criteria": {
+        "lit_the_stove": {
+          "type": "event",
+          "items": [
+            "kaleidoscopecookery:stove"
+          ],
+          "entities": [],
+          "event": "lit_the_stove"
+        }
+      },
+      "requirements": [
+        [
+          "lit_the_stove"
+        ]
+      ]
+    },
+    {
+      "id": "straw_hat",
+      "parent": "root",
+      "icon": "kaleidoscopecookery:straw_hat",
+      "frame": "task",
+      "hidden": false,
+      "showToast": true,
+      "announceChat": true,
+      "titleKey": "advancements.kaleidoscope_cookery.straw_hat.title",
+      "title": "目标是海贼王！",
+      "descriptionKey": "advancements.kaleidoscope_cookery.straw_hat.description",
+      "description": "合成一个草帽",
+      "unsupportedReason": null,
+      "criteria": {
+        "has_straw_hat": {
+          "type": "inventory",
+          "items": [
+            "kaleidoscopecookery:straw_hat"
+          ],
+          "entities": []
+        }
+      },
+      "requirements": [
+        [
+          "has_straw_hat"
+        ]
+      ]
+    },
+    {
+      "id": "tomato_seed",
+      "parent": "straw_hat",
+      "icon": "kaleidoscopecookery:tomato_seed",
+      "frame": "task",
+      "hidden": false,
+      "showToast": true,
+      "announceChat": true,
+      "titleKey": "advancements.kaleidoscope_cookery.tomato_seed.title",
+      "title": "种子计划",
+      "descriptionKey": "advancements.kaleidoscope_cookery.tomato_seed.description",
+      "description": "清理草丛时候请别忘记穿戴草帽，除了草籽，或许还有其他收获",
+      "unsupportedReason": null,
+      "criteria": {
+        "has_tomato_seed": {
+          "type": "inventory",
+          "items": [
+            "kaleidoscopecookery:tomato_seed",
+            "kaleidoscopecookery:chili_seed",
+            "kaleidoscopecookery:wild_rice",
+            "kaleidoscopecookery:lettuce_seed",
+            "kaleidoscopecookery:tea_seed"
+          ],
+          "entities": []
+        }
+      },
+      "requirements": [
+        [
+          "has_tomato_seed"
+        ]
+      ]
+    },
+    {
+      "id": "transmutation_lunch_bag",
+      "parent": "root",
+      "icon": "kaleidoscopecookery:transmutation_lunch_bag",
+      "frame": "goal",
+      "hidden": false,
+      "showToast": true,
+      "announceChat": true,
+      "titleKey": "advancements.kaleidoscope_cookery.transmutation_lunch_bag.title",
+      "title": "酒囊饭袋！",
+      "descriptionKey": "advancements.kaleidoscope_cookery.transmutation_lunch_bag.description",
+      "description": "使用嬗变饭袋进食",
+      "unsupportedReason": null,
+      "criteria": {
+        "use_transmutation_lunch_bag": {
+          "type": "event",
+          "items": [
+            "kaleidoscopecookery:transmutation_lunch_bag"
+          ],
+          "entities": [],
+          "event": "use_transmutation_lunch_bag"
+        }
+      },
+      "requirements": [
+        [
+          "use_transmutation_lunch_bag"
+        ]
+      ]
+    }
+  ]
+}

@@ -1,4 +1,6 @@
 package net.kaleidoscope.cookery.block.entity;
+
+import net.kaleidoscope.cookery.api.KaleidoscopeAdvancements;
 import net.kaleidoscope.cookery.util.FoliaUtil;
 
 import net.kaleidoscope.cookery.block.behavior.StockpotBehavior;
@@ -393,7 +395,14 @@ public class StockpotController extends BlockEntityController {
         Item extracted = ingredients.remove(ingredients.size() - 1);
 
         if (stage == StockpotStage.COOKING) {
-            if (player != null) player.damage(2, DAMAGE_GENERIC, null);
+            if (player != null) {
+                org.bukkit.entity.Player bukkitPlayer = (org.bukkit.entity.Player) player.platformPlayer();
+                double health = bukkitPlayer.getHealth() + bukkitPlayer.getAbsorptionAmount();
+                player.damage(2, DAMAGE_GENERIC, null);
+                if (bukkitPlayer.getHealth() + bukkitPlayer.getAbsorptionAmount() < health) {
+                    KaleidoscopeAdvancements.recordEvent(player, "hurt_when_takeout_from_stockpot");
+                }
+            }
             stage = StockpotStage.PUT_INGREDIENT;
             currentTick = -1;
         }
