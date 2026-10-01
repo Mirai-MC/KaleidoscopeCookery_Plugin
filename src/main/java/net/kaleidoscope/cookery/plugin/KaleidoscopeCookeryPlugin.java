@@ -20,6 +20,7 @@ import net.kaleidoscope.cookery.block.entity.render.ItemDisplaySet;
 import net.kaleidoscope.cookery.entity.cat.FruitBasketCatGoal;
 import net.kaleidoscope.cookery.entity.cat.FruitBasketCatListener;
 import net.kaleidoscope.cookery.item.listener.CaterpillarListener;
+import net.kaleidoscope.cookery.item.listener.BaoziThrowListener;
 import net.kaleidoscope.cookery.item.listener.DishCarrierListener;
 import net.kaleidoscope.cookery.item.listener.LunchBagListener;
 import net.kaleidoscope.cookery.api.BlockTags;
@@ -61,6 +62,7 @@ public final class KaleidoscopeCookeryPlugin extends JavaPlugin {
     private Metrics metrics;
     private Object placeholderExpansion;
     private volatile AdvancementTracker advancementTracker;
+    private BaoziThrowListener baoziThrows;
 
     @Override
     public void onEnable() {
@@ -82,6 +84,8 @@ public final class KaleidoscopeCookeryPlugin extends JavaPlugin {
         BlockTags.registerParser();
         getServer().getPluginManager().registerEvents(new DishCarrierListener(), this);
         getServer().getPluginManager().registerEvents(new CaterpillarListener(), this);
+        baoziThrows = new BaoziThrowListener(this);
+        getServer().getPluginManager().registerEvents(baoziThrows, this);
         getServer().getPluginManager().registerEvents(new MillstoneDamageListener(), this);
         getServer().getPluginManager().registerEvents(new MillstoneAnimalListener(), this);
         getServer().getPluginManager().registerEvents(new MillstonePlaceListener(), this);
@@ -119,6 +123,7 @@ public final class KaleidoscopeCookeryPlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        if (baoziThrows != null) baoziThrows.close();
         closeAdvancements();
         FoliaUtil.shutdown();
         // 关服时把还在垃圾桶里的玩家放出来 还原模式与头盔

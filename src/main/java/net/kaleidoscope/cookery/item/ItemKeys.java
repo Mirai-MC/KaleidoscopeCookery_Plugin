@@ -61,6 +61,7 @@ public final class ItemKeys {
     public static final Key TRANSMUTATION_LUNCH_BAG_EATING = Key.of("kaleidoscopecookery:transmutation_lunch_bag_eating");
     public static final Key COOKED_BEEF = Key.of("minecraft:cooked_beef");
     public static final Key CATERPILLAR = Key.of("kaleidoscopecookery:caterpillar");
+    public static final Key BAOZI = Key.of("kaleidoscopecookery:baozi");
 
     public static final Key DIAMOND_KITCHEN_KNIFE = Key.of("kaleidoscopecookery:diamond_kitchen_knife");
     public static final Key GOLD_KITCHEN_KNIFE = Key.of("kaleidoscopecookery:gold_kitchen_knife");

@@ -101,11 +101,11 @@
       "title": "肉包打狗，有去无回！",
       "descriptionKey": "advancements.kaleidoscope_cookery.baozi.description",
       "description": "潜行并抛出一个蒸包击中狼，使其回血",
-      "unsupportedReason": "插件尚未实现投掷肉包喂狗",
+      "unsupportedReason": null,
       "criteria": {
         "meat_buns_beat_dogs": {
           "type": "event",
-          "items": [],
+          "items": ["kaleidoscopecookery:baozi"],
           "entities": [],
           "event": "meat_buns_beat_dogs"
         }
