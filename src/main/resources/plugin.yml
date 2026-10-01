@@ -19,4 +19,4 @@ permissions:
     default: op
 
 depend: [CraftEngine]
-softdepend: [Dominion, PlaceholderAPI]
+softdepend: [Dominion, PlaceholderAPI, UltimateAdvancementAPI]

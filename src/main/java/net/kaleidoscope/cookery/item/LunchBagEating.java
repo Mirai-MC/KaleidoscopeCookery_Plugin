@@ -1,5 +1,7 @@
 package net.kaleidoscope.cookery.item;
 
+import net.kaleidoscope.cookery.api.KaleidoscopeAdvancements;
+
 import net.kaleidoscope.cookery.util.FoliaUtil;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -62,6 +64,7 @@ public final class LunchBagEating {
         Item food = LunchBagContents.removeOne(eating);
         if (!ItemUtils.isEmpty(food)) {
             applyNutrition(bukkitPlayer, food);
+            KaleidoscopeAdvancements.recordEvent(bukkitPlayer, "use_transmutation_lunch_bag");
         }
         Item bag = LunchBagContents.toBagForm(eating);
         if (ItemUtils.isEmpty(bag)) {

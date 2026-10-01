@@ -1,5 +1,7 @@
 package net.kaleidoscope.cookery.block.entity;
 
+import net.kaleidoscope.cookery.api.KaleidoscopeAdvancements;
+
 import net.kaleidoscope.cookery.util.BlockEntityNbt;
 import net.kaleidoscope.cookery.util.EventUtils;
 import net.kaleidoscope.cookery.util.FoliaUtil;
@@ -818,6 +820,11 @@ public class MillstoneController extends FurnitureController {
         playMillstoneSound(1.0f, 0.8f);
         tryFeedFromChest();
         furniture().setUnsaved();
+        // 模组奖励被绑定动物的主人，而不是骑乘者或牵绳者。
+        if (animal instanceof org.bukkit.entity.Tameable tameable && tameable.getOwner() != null) {
+            org.bukkit.entity.Player animalOwner = org.bukkit.Bukkit.getPlayer(tameable.getOwner().getUniqueId());
+            KaleidoscopeAdvancements.recordEvent(animalOwner, "drive_the_millstone");
+        }
         return true;
     }
 

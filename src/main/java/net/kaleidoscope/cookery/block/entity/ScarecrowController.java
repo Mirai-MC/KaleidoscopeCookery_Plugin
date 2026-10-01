@@ -1,5 +1,7 @@
 package net.kaleidoscope.cookery.block.entity;
 
+import net.kaleidoscope.cookery.api.KaleidoscopeAdvancements;
+
 import net.kaleidoscope.cookery.block.behavior.ScarecrowBehavior;
 import net.kaleidoscope.cookery.item.ItemKeys;
 import net.kaleidoscope.cookery.util.BlockEntityNbt;
@@ -224,6 +226,9 @@ public final class ScarecrowController extends FurnitureController {
         }
         refresh();
         player.swingHand(InteractionHand.MAIN_HAND);
+        if (slot == ScarecrowElement.SLOT_HEAD) {
+            KaleidoscopeAdvancements.recordEvent(player, "place_head_on_scarecrow");
+        }
         return InteractionResult.SUCCESS_AND_CANCEL;
     }
 

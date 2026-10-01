@@ -1,5 +1,7 @@
 package net.kaleidoscope.cookery.block.entity;
 
+import net.kaleidoscope.cookery.api.KaleidoscopeAdvancements;
+
 import net.kaleidoscope.cookery.util.MessageKeys;
 import net.kaleidoscope.cookery.block.behavior.PotBehavior;
 
@@ -292,7 +294,12 @@ public class PotController extends BlockEntityController {
     public Item extractItem(Player player) {
         if (stage == PotStage.DONE || stage == PotStage.BURNT || animating || ingredients.isEmpty()) return null;
         if (this.hasOil && player != null) {
+            org.bukkit.entity.Player bukkitPlayer = (org.bukkit.entity.Player) player.platformPlayer();
+            double health = bukkitPlayer.getHealth() + bukkitPlayer.getAbsorptionAmount();
             player.damage(2, DAMAGE_GENERIC, null);
+            if (bukkitPlayer.getHealth() + bukkitPlayer.getAbsorptionAmount() < health) {
+                KaleidoscopeAdvancements.recordEvent(player, "hurt_when_takeout_from_pot");
+            }
         }
         stirFryCount = 0;
         int index = ingredients.size() - 1;

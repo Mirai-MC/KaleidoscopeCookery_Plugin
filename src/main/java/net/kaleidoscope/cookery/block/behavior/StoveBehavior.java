@@ -1,5 +1,7 @@
 package net.kaleidoscope.cookery.block.behavior;
 
+import net.kaleidoscope.cookery.api.KaleidoscopeAdvancements;
+
 import net.kaleidoscope.cookery.block.entity.StoveController;
 import net.momirealms.craftengine.bukkit.block.behavior.BukkitBlockBehavior;
 import net.momirealms.craftengine.bukkit.util.BlockStateUtils;
@@ -125,6 +127,7 @@ public class StoveBehavior extends BukkitBlockBehavior implements EntityBlock {
 
         boolean fireCharge = ItemMatch.is(igniteItem, ItemKeys.FIRE_CHARGE);
         if (newLit) {
+            KaleidoscopeAdvancements.recordEvent(player, "lit_the_stove");
             context.getLevel().playBlockSound(
                     new Vec3d(context.getClickedPos().x() + 0.5, context.getClickedPos().y() + 0.5, context.getClickedPos().z() + 0.5),
                     fireCharge ? IGNITE_FIRE_CHARGE_SOUND : IGNITE_FLINT_SOUND,

@@ -23,11 +23,14 @@ bin/
 # VS Code
 .vscode/
 
-# CraftEngine 资源包内容 不随插件仓库分发 但保留定位包所需的元数据
+# CraftEngine 资源包内容；只分发包元数据和成就文本补丁
 /Kaleidoscope/*
 !/Kaleidoscope/*/
 /Kaleidoscope/*/*
 !/Kaleidoscope/*/pack.yml
+!/Kaleidoscope/kaleidoscopecookery/configuration/
+/Kaleidoscope/kaleidoscopecookery/configuration/*
+!/Kaleidoscope/kaleidoscopecookery/configuration/advancements.yml
 
 # 本地配置 / 凭据
 .claude/settings.local.json
