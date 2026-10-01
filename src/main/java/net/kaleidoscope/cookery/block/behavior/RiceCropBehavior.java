@@ -122,6 +122,10 @@ public final class RiceCropBehavior extends BukkitBlockBehavior
         this.harvestRules = harvestRules;
     }
 
+    public boolean isGrowthBooster(EntityType type) {
+        return this.boosterCache.tracks(type);
+    }
+
     @Override
     public boolean canRandomlyTick(ImmutableBlockState state) {
         return state.get(this.locationProperty) == BOTTOM && state.get(this.ageProperty) < this.ageProperty.max;

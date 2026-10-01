@@ -35,10 +35,10 @@ class AdvancementCatalogTest {
     @Test
     void hidesOnlyUnportedMechanicsWhenAllItemsAreAvailable() {
         var plan = catalog.plan(allItems(), Set.of());
-        assertEquals(31, plan.definitions().size());
-        assertEquals(Set.of("dough", "baozi", "fish_rice", "nitrogen_100", "nitrogen_300",
+        assertEquals(33, plan.definitions().size());
+        assertEquals(Set.of("baozi", "nitrogen_100", "nitrogen_300",
                 "nitrogen_1000", "nitrogen_3000"), plan.excluded().keySet());
-        assertEquals("millstone", plan.parents().get("steamer"));
+        assertEquals("dough", plan.parents().get("steamer"));
         assertEquals("dough", definition("steamer").parent());
     }
 
@@ -111,13 +111,32 @@ class AdvancementCatalogTest {
     }
 
     @Test
-    void unportedMechanicsCannotBeAwardedThroughEventBridge() {
+    void eventBridgeIncludesPackMechanicsAndExcludesUnportedMechanics() {
         var index = AdvancementCatalog.index(catalog.plan(allItems(), Set.of()), "event");
-        assertFalse(index.containsKey("pull_the_dough"));
+        assertEquals(List.of(new AdvancementCatalog.Match("dough", 0)), index.get("pull_the_dough"));
         assertFalse(index.containsKey("meat_buns_beat_dogs"));
-        assertFalse(index.containsKey("place_fish_in_rice_field"));
+        assertEquals(List.of(new AdvancementCatalog.Match("fish_rice", 0)), index.get("place_fish_in_rice_field"));
         assertTrue(index.containsKey("drive_the_millstone"));
         assertEquals(List.of(new AdvancementCatalog.Match("stir_fry", 0)), index.get("stir_fry_in_pot"));
+    }
+
+    @Test
+    void acquiringDoughOrNoodlesCannotSubstituteForPullingDough() {
+        var index = AdvancementCatalog.index(catalog.plan(allItems(), Set.of()), "inventory");
+        for (String item : List.of("kaleidoscopecookery:raw_dough", "kaleidoscopecookery:raw_noodles")) {
+            assertTrue(index.getOrDefault(item, List.of()).stream().noneMatch(match -> match.advancement().equals("dough")));
+        }
+    }
+
+    @Test
+    void missingPackIngredientsHideTheirMechanicsAndReparentSteamer() {
+        Set<String> items = allItems();
+        items.remove("kaleidoscopecookery:raw_dough");
+        items.remove("kaleidoscopecookery:wild_rice");
+        var plan = catalog.plan(items, Set.of());
+        assertFalse(plan.definitions().containsKey("dough"));
+        assertFalse(plan.definitions().containsKey("fish_rice"));
+        assertEquals("millstone", plan.parents().get("steamer"));
     }
 
     private AdvancementCatalog.Definition definition(String id) {

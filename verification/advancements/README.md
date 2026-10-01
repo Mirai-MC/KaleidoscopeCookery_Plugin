@@ -2,7 +2,7 @@
 
 `AdvancementProbe.java` 是独立测试插件源文件，供隔离的 Paper 26.3、CraftEngine 26.9.2、完整森罗物语包和本地 UltimateAdvancementAPI Pro 2.8.1-pro.2 使用。不要放到正式服务器。
 
-用测试服的 Paper API、UAA Pro、本插件及相关运行库作为 Java 编译路径，将编译后的类打包成测试插件，附带以下 `plugin.yml`：
+用测试服的 Paper API、UAA Pro、本插件及相关运行库作为 Java 编译路径，同时编译 `AdvancementProbe.java` 和 `GameplayProbe.java`，将编译后的类打包成测试插件，附带以下 `plugin.yml`：
 
 ```yaml
 name: AdvancementProbe
@@ -14,8 +14,10 @@ depend: [KaleidoscopeCookeryPlugin, UltimateAdvancementAPI]
 
 使用全新的隔离测试服目录，将 UAA 存储设为 SQLite。连续启动并正常关闭三次，保留同一数据库：
 
-1. 验证 31 个展示节点、6 个独立分项、Pro 布局和原生本地化组件；写入部分进度，检查重复获取、重建、禁用和重新启用。
+1. 验证 33 个展示节点、6 个独立分项、Pro 布局和原生本地化组件；写入部分进度，检查重复获取、重建、禁用和重新启用。
 2. 检查第一次关闭后部分进度持久化，再完成双椒、套装和隐藏挑战。
 3. 检查完成后的进度仍存在，再执行实际 `/ce reload all` 并检查成就树和完成状态。
 
 每次写出 `advancement-probe-result.json`，成功时 `success` 为 `true`，并更新 `advancement-phase.txt`。测试直接检查 SQLite 的父项记录和离线完成记录，覆盖分项完成时的写入顺序。测试通过 UAA 的数据库执行器创建一个专用离线测试账户，使用实际分项对象更新进度；它不模拟真实客户端登录、通知画面或玩家操作。真实玩法的钩子与此验证的持久化检查分开评估。
+
+`GameplayProbe.java` 使用模拟玩家及事件，配合真实 CraftEngine 物品、水稻方块、生物和调度器验证拉面及鱼稻共生的成功、取消、生成失败、超出范围和发射器排除路径。这是触发器回归测试，不代表真实客户端操作验证。升级回归可复用 1.2.0 验证数据库，把 `advancement-phase.txt` 设为 `3`，检查既有进度和全量重载。

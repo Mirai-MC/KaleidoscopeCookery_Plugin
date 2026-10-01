@@ -30,6 +30,10 @@ public final class ChunkEntityCache {
         this.maxChunks = Math.max(1, maxChunks);
     }
 
+    public boolean tracks(EntityType type) {
+        return this.types.contains(type);
+    }
+
     public int countAround(World world, int x, int y, int z, int radius) {
         if (this.types.isEmpty()) {
             return 0;
