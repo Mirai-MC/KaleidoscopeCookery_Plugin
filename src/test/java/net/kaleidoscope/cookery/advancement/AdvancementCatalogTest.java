@@ -35,8 +35,8 @@ class AdvancementCatalogTest {
     @Test
     void hidesOnlyUnportedMechanicsWhenAllItemsAreAvailable() {
         var plan = catalog.plan(allItems(), Set.of());
-        assertEquals(33, plan.definitions().size());
-        assertEquals(Set.of("baozi", "nitrogen_100", "nitrogen_300",
+        assertEquals(34, plan.definitions().size());
+        assertEquals(Set.of("nitrogen_100", "nitrogen_300",
                 "nitrogen_1000", "nitrogen_3000"), plan.excluded().keySet());
         assertEquals("dough", plan.parents().get("steamer"));
         assertEquals("dough", definition("steamer").parent());
@@ -114,7 +114,7 @@ class AdvancementCatalogTest {
     void eventBridgeIncludesPackMechanicsAndExcludesUnportedMechanics() {
         var index = AdvancementCatalog.index(catalog.plan(allItems(), Set.of()), "event");
         assertEquals(List.of(new AdvancementCatalog.Match("dough", 0)), index.get("pull_the_dough"));
-        assertFalse(index.containsKey("meat_buns_beat_dogs"));
+        assertEquals(List.of(new AdvancementCatalog.Match("baozi", 0)), index.get("meat_buns_beat_dogs"));
         assertEquals(List.of(new AdvancementCatalog.Match("fish_rice", 0)), index.get("place_fish_in_rice_field"));
         assertTrue(index.containsKey("drive_the_millstone"));
         assertEquals(List.of(new AdvancementCatalog.Match("stir_fry", 0)), index.get("stir_fry_in_pot"));
@@ -137,6 +137,22 @@ class AdvancementCatalogTest {
         assertFalse(plan.definitions().containsKey("dough"));
         assertFalse(plan.definitions().containsKey("fish_rice"));
         assertEquals("millstone", plan.parents().get("steamer"));
+    }
+
+    @Test
+    void acquiringBaoziCannotSubstituteForHittingWolf() {
+        var plan = catalog.plan(allItems(), Set.of());
+        var inventory = AdvancementCatalog.index(plan, "inventory");
+        assertTrue(inventory.getOrDefault("kaleidoscopecookery:baozi", List.of()).stream()
+                .noneMatch(match -> match.advancement().equals("baozi")));
+        assertEquals("steamer", plan.parents().get("baozi"));
+    }
+
+    @Test
+    void missingBaoziHidesItsAchievement() {
+        Set<String> items = allItems();
+        items.remove("kaleidoscopecookery:baozi");
+        assertFalse(catalog.plan(items, Set.of()).definitions().containsKey("baozi"));
     }
 
     private AdvancementCatalog.Definition definition(String id) {
