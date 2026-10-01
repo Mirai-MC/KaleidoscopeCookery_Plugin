@@ -312,11 +312,11 @@
       "title": "拉拉拉拉拉拉面",
       "descriptionKey": "advancements.kaleidoscope_cookery.dough.description",
       "description": "将面团拉扯成面条",
-      "unsupportedReason": "插件尚未实现手动拉面",
+      "unsupportedReason": null,
       "criteria": {
         "pull_the_dough": {
           "type": "event",
-          "items": [],
+          "items": ["kaleidoscopecookery:raw_dough"],
           "entities": [],
           "event": "pull_the_dough"
         }
@@ -465,11 +465,11 @@
       "title": "鱼稻共生",
       "descriptionKey": "advancements.kaleidoscope_cookery.fish_rice.description",
       "description": "通过在水稻中养鱼来加速水稻生长速度！",
-      "unsupportedReason": "插件尚未实现鱼稻共生",
+      "unsupportedReason": null,
       "criteria": {
         "place_fish_in_rice_field": {
           "type": "event",
-          "items": [],
+          "items": ["kaleidoscopecookery:wild_rice"],
           "entities": [],
           "event": "place_fish_in_rice_field"
         }

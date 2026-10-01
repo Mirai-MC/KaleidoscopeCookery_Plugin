@@ -47,6 +47,7 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 import net.kaleidoscope.cookery.advancement.AdvancementTracker;
 import net.kaleidoscope.cookery.advancement.AdvancementPlacementListener;
+import net.kaleidoscope.cookery.advancement.AdvancementGameplayListener;
 
 public final class KaleidoscopeCookeryPlugin extends JavaPlugin {
     // bStats 插件 ID：https://bstats.org/plugin/bukkit/KaleidoscopeCookeryPlugin/32444
@@ -109,6 +110,7 @@ public final class KaleidoscopeCookeryPlugin extends JavaPlugin {
         ItemBehaviors.register();
         FurnitureBehaviors.register();
         getServer().getPluginManager().registerEvents(new AdvancementPlacementListener(), this);
+        getServer().getPluginManager().registerEvents(new AdvancementGameplayListener(), this);
         setupAdvancements();
         setupPlaceholders();
         setupMetrics();
