@@ -4,7 +4,7 @@ import net.kaleidoscope.cookery.api.EntityProperties;
 import net.momirealms.craftengine.core.plugin.config.ConfigSection;
 import net.momirealms.craftengine.core.plugin.context.Context;
 import net.momirealms.craftengine.core.plugin.context.ContextHolder;
-import net.momirealms.craftengine.core.plugin.context.ContextKey;
+import net.momirealms.craftengine.core.plugin.context.SimpleContext;
 import net.momirealms.craftengine.core.plugin.context.parameter.DirectContextParameters;
 import net.momirealms.craftengine.core.util.Key;
 import org.bukkit.entity.Entity;
@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Proxy;
 import java.util.Map;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -65,20 +64,9 @@ class EntityPropertiesConditionTest {
                             }
                             throw new UnsupportedOperationException(method.getName());
                         });
-        return new Context() {
-            @Override
-            public ContextHolder contexts() {
-                return null;
-            }
-
-            @Override
-            @SuppressWarnings("unchecked")
-            public <T> Optional<T> getOptionalParameter(ContextKey<T> key) {
-                return key == DirectContextParameters.ENTITY
-                        ? Optional.of((T) entity)
-                        : Optional.empty();
-            }
-        };
+        return SimpleContext.of(ContextHolder.builder()
+                .withParameter(DirectContextParameters.ENTITY, entity)
+                .build());
     }
 
     private static Entity entity(int fireTicks, int entityId) {

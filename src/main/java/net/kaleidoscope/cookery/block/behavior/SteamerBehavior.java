@@ -7,6 +7,7 @@ import net.kaleidoscope.cookery.util.ConsoleMessages;
 import net.momirealms.craftengine.bukkit.block.behavior.BukkitBlockBehavior;
 import net.momirealms.craftengine.bukkit.block.behavior.BukkitFallableBlock;
 import net.momirealms.craftengine.bukkit.nms.FastNMS;
+import net.momirealms.craftengine.bukkit.plugin.injector.FallingBlockEntityGenerator;
 import net.momirealms.craftengine.bukkit.util.BlockStateUtils;
 import net.momirealms.craftengine.bukkit.util.DirectionUtils;
 import net.momirealms.craftengine.bukkit.util.ItemStackUtils;
@@ -45,6 +46,7 @@ import net.momirealms.craftengine.libraries.nbt.ListTag;
 import org.bukkit.inventory.ItemStack;
 import net.momirealms.craftengine.libraries.nbt.Tag;
 import net.momirealms.craftengine.proxy.minecraft.core.Vec3iProxy;
+import net.momirealms.craftengine.proxy.minecraft.world.entity.EntityProxy;
 import net.momirealms.craftengine.proxy.minecraft.world.level.BlockGetterProxy;
 import net.momirealms.craftengine.proxy.minecraft.world.level.LevelAccessorProxy;
 import net.momirealms.craftengine.proxy.minecraft.world.level.LevelProxy;
@@ -436,19 +438,24 @@ public final class SteamerBehavior extends BukkitBlockBehavior implements Entity
         CompoundTag tag = new CompoundTag();
         BlockEntity blockEntity = BukkitWorldManager.instance().getWorld(
                 LevelProxy.INSTANCE.getWorld(level).getUID()).storageWorld().getBlockEntityAtIfLoaded(pos);
-        if (blockEntity != null) {
-            SteamerController controller = blockEntity.controller.get(SteamerController.class, this.controllerId);
-            if (controller != null) {
-                controller.saveCustomData(tag);
-                controller.markFallingAway();
-                Arrays.fill(controller.getItems(), Item.empty());
-            }
+        SteamerController controller = blockEntity == null ? null
+                : blockEntity.controller.get(SteamerController.class, this.controllerId);
+        if (controller != null) {
+            controller.saveCustomData(tag);
+            controller.markFallingAway();
         }
 
-        Object fallingBlockEntity = FastNMS.INSTANCE.createInjectedFallingBlockEntity(level, blockPos, blockState);
+        Object fallingBlockEntity = FallingBlockEntityGenerator.fall(level, blockPos, blockState);
         PendingData pending = new PendingData(tag, customState, this.controllerId);
-        if (fallingBlockEntity == null) {
-            dropSteamer(level, blockPos, pending);
+        // CE 26.9 returns an unspawned entity when the change-block event is cancelled.
+        if (fallingBlockEntity == null || !EntityProxy.INSTANCE.getBukkitEntity(fallingBlockEntity).isValid()) {
+            if (BlockGetterProxy.INSTANCE.getBlockState(level, blockPos) == blockState) {
+                if (controller != null) {
+                    controller.clearFallingAway();
+                }
+            } else {
+                dropSteamer(level, blockPos, pending);
+            }
             return;
         }
         pendingData.put(fallingBlockEntity, pending);

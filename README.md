@@ -63,7 +63,9 @@
 
 ## 📦 依赖与构建
 
-- **运行环境**：Paper / Folia，需安装 [CraftEngine](https://github.com/Xiao-MoMi/craft-engine)（`plugin.yml` 声明为前置且 `load: BEFORE`）。
+- **运行环境**：Paper / Folia，需安装 [CraftEngine](https://github.com/Xiao-MoMi/craft-engine) **26.9.1 或更新版本**（`plugin.yml` 的 `depend` 声明为前置）。本次更新面向 **CraftEngine 26.9.2**，新增 Minecraft **26.3** 的底层适配。
+
+- **Java**：Minecraft 1.21.x 使用 Java 21；Minecraft 26.x 使用 Java 25。构建完整的多版本插件需要同时安装 JDK 21 和 JDK 25。
 
 - **领地保护**：内置打包 [AntiGriefLib](https://github.com/Xiao-MoMi/AntiGriefLib)（shadow 重定位到 `net.kaleidoscope.cookery.libs.antigrieflib`），自动复用服务器上的领地 / 保护插件做交互与破坏判定。
 
@@ -72,9 +74,15 @@
 - **构建**：
 
   ```bash
-  ./gradlew shadowJar
+  ./gradlew build
   # 产物：build/libs/KaleidoscopeCookeryPlugin-<version>.jar
   ```
+
+  Windows 使用 `gradlew.bat build`。构建会运行测试并编译所有服务端适配模块；Spigot NMS 依赖可从 CodeMC 获取，也可用 BuildTools 安装到本地 Maven 仓库。
+
+  `gradle.properties` 中的 `craftEngineVersion` 统一控制 Bukkit、Core、Proxy 和测试使用的 **公开 API 版本**。截至 2026-10-01，官方 Maven 仓库最新公开 API 为 **26.9.1**，实际 CraftEngine 发布版为 **26.9.2**；因此默认依赖 26.9.1，兼容目标为 26.9.2。26.9.2 的实际插件包及运行库也已用于编译与回归验证。Core API 已包含重定位的 Adventure 类型，无需再混用旧版 `craft-engine-adventure`。
+
+  1.1.9 迁移了作物掉落上下文、家具的 `IntConsumer` 交互实体接口和蒸笼下落实体接口；下落被取消时保留原蒸笼中的食材。升级时替换插件 JAR 并重启服务器，继续使用原有 CraftEngine 资源包。仓库只附带资源包元数据，完整模型、贴图及玩法配置需沿用已有资源包。
 
 ### 🛡️ 领地权限
 
