@@ -49,9 +49,9 @@ public final class AdvancementProbe extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(this, this);
         Bukkit.getScheduler().runTaskLater(this, () -> {
             try {
-                GameplayProbe.verify(this, report, () -> {
+                BaoziProbe.verify(this, report, () -> GameplayProbe.verify(this, report, () -> {
                     try { start(); } catch (Throwable error) { finish(error); }
-                }, this::finish);
+                }, this::finish), this::finish);
             } catch (Throwable error) { finish(error); }
         }, 100);
     }
@@ -131,14 +131,15 @@ public final class AdvancementProbe extends JavaPlugin implements Listener {
 
     private void inspectTree() throws Exception {
         check("tab initialized", tab() != null && tab().isInitialised());
-        check("33 visible definitions", tab().getAdvancements().stream().filter(a -> !(a instanceof TaskAdvancement)).count() == 33);
+        check("34 visible definitions", tab().getAdvancements().stream().filter(a -> !(a instanceof TaskAdvancement)).count() == 34);
         check("six persisted AND tasks", tab().getAdvancements().stream().filter(a -> a instanceof MultiTasksAdvancement)
                 .mapToInt(a -> ((MultiTasksAdvancement) a).getTasks().size()).sum() == 6);
-        for (String unsupported : List.of("baozi", "nitrogen_100", "nitrogen_300", "nitrogen_1000", "nitrogen_3000")) {
+        for (String unsupported : List.of("nitrogen_100", "nitrogen_300", "nitrogen_1000", "nitrogen_3000")) {
             check("unported hidden " + unsupported, api.getAdvancement("kaleidoscopecookery", unsupported) == null);
         }
         check("steamer keeps original dough parent", ((BaseAdvancement) advancement("steamer")).getParent() == advancement("dough"));
         check("fish rice keeps original rice parent", ((BaseAdvancement) advancement("fish_rice")).getParent() == advancement("rice_panicle"));
+        check("baozi keeps original steamer parent", ((BaseAdvancement) advancement("baozi")).getParent() == advancement("steamer"));
         Set<String> positions = new HashSet<>();
         for (Advancement node : tab().getAdvancements()) {
             if (node instanceof TaskAdvancement) continue;
