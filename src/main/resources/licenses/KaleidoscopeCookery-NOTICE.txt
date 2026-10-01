@@ -1,0 +1,8 @@
+Advancement definitions and translations adapted from KaleidoscopeCookery 1.6.0
+Copyright (c) 2025, Kaleidoscope Official Production Team
+Source: https://github.com/KaleidoscopeMods/KaleidoscopeCookery
+Commit: 2f4e386ce23f49a385ddf003c67fc6415c55417a
+Changes: namespace and millstone icon mapping; plugin mechanic availability metadata.
+Original game text and assets: CC BY-NC-SA 4.0 (see LICENSE-ASSETS).
+Original source code: BSD-3-Clause (see LICENSE-CODE).
+The plugin integration code is implemented in this repository.

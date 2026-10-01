@@ -1,5 +1,7 @@
 package net.kaleidoscope.cookery.block.behavior;
 
+import net.kaleidoscope.cookery.api.KaleidoscopeAdvancements;
+
 import net.kaleidoscope.cookery.api.ChoppingBoardKnives;
 import net.kaleidoscope.cookery.block.entity.ChoppingBoardController;
 
@@ -121,6 +123,7 @@ public final class ChoppingBoardBehavior extends BukkitBlockBehavior implements 
         if (result == ChoppingBoardController.CutResult.NOTHING) {
             return InteractionResult.PASS;
         }
+        KaleidoscopeAdvancements.recordEvent(player, "use_chopping_board");
         Objects.requireNonNull(player).swingHand(hand);
 
         // 扣菜刀耐久

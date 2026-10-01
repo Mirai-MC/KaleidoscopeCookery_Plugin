@@ -1,5 +1,7 @@
 package net.kaleidoscope.cookery.block.listener;
 
+import net.kaleidoscope.cookery.api.KaleidoscopeAdvancements;
+
 import net.kaleidoscope.cookery.api.BlockTags;
 import net.kaleidoscope.cookery.util.EventUtils;
 import net.kaleidoscope.cookery.util.Hands;
@@ -61,6 +63,7 @@ public final class PaddyTillListener implements Listener {
         // 只为让日志插件记下原方块 取消结果不理会 权限已经走过 InteractGuard
         EventUtils.logBlockBreak(block, player);
         block.setBlockData(TILLED_FARMLAND, true);
+        KaleidoscopeAdvancements.recordEvent(player, "use_hoe_on_water_field");
         event.setCancelled(true);
         block.getWorld().playSound(block.getLocation(), Sound.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0f, 1.0f);
         Hands.swing(player, event.getHand());

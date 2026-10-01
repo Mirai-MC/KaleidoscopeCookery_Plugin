@@ -44,6 +44,11 @@ repositories {
         name = "placeholderapi"
         url = "https://repo.extendedclip.com/releases/"
     }
+    maven {
+        name = "ultimateAdvancementAPI"
+        url = "https://nexus.frengor.com/repository/public/"
+        content { includeGroup('com.frengor') }
+    }
 }
 
 nmsVersions.each { sourceSetName, version ->
@@ -55,6 +60,13 @@ nmsVersions.each { sourceSetName, version ->
 }
 
 dependencies {
+    // Optional runtime plugin: never bundle its API or implementation.
+    def ultimateApiJar = providers.gradleProperty('ultimateAdvancementApiJar').orNull
+    if (ultimateApiJar != null) {
+        compileOnly(files(ultimateApiJar))
+    } else {
+        compileOnly('com.frengor:ultimateadvancementapi:2.8.1') { transitive = false }
+    }
     compileOnly("io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT")
     compileOnly("net.momirealms:craft-engine-bukkit:${craftEngineVersion}")
     compileOnly("net.momirealms:craft-engine-core:${craftEngineVersion}")

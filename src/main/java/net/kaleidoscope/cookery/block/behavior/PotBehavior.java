@@ -1,4 +1,6 @@
 package net.kaleidoscope.cookery.block.behavior;
+
+import net.kaleidoscope.cookery.api.KaleidoscopeAdvancements;
 import net.kaleidoscope.cookery.block.entity.PotStage;
 import net.kaleidoscope.cookery.block.entity.PotController;
 
@@ -228,6 +230,7 @@ public final class PotBehavior extends BukkitBlockBehavior implements EntityBloc
             player.sendActionBar(Localization.component(MessageKeys.POT_NEED_HEAT));
         } else {
             controller.setHasOil(true);
+            KaleidoscopeAdvancements.recordEvent(player, "put_oil_in_pot");
             if (!KitchenShovel.isLegacy(shovel)) {
                 KitchenShovel.setHasOil(shovel, false, shovelItem, shovelOilModel);
             }
@@ -250,6 +253,7 @@ public final class PotBehavior extends BukkitBlockBehavior implements EntityBloc
             player.sendActionBar(Localization.component(MessageKeys.POT_NEED_HEAT));
         } else {
             controller.setHasOil(true);
+            KaleidoscopeAdvancements.recordEvent(player, "put_oil_in_pot");
             if (!player.canInstabuild()) {
                 // 先判断这是不是最后一次 是就直接换空壶
                 // 交给 hurtAndBreak 的话物品会先摔碎再补发 会多一声破碎音效和一帧空手
@@ -278,6 +282,7 @@ public final class PotBehavior extends BukkitBlockBehavior implements EntityBloc
             player.sendActionBar(Localization.component(MessageKeys.POT_NEED_HEAT));
         } else {
             controller.setHasOil(true);
+            KaleidoscopeAdvancements.recordEvent(player, "put_oil_in_pot");
             InventoryUtils.shrinkHeld(player, itemInHand, 1);
             context.getLevel().playSound(Vec3d.atCenterOf(context.getClickedPos()), SOUND_ADD_OIL, DEFAULT_VOLUME, 1.0f, SoundSource.BLOCK);
             player.swingHand(hand);
@@ -296,6 +301,7 @@ public final class PotBehavior extends BukkitBlockBehavior implements EntityBloc
         if (result == PotController.StirResult.DENIED) {
             return InteractionResult.SUCCESS_AND_CANCEL;
         }
+        KaleidoscopeAdvancements.recordEvent(player, "stir_fry_in_pot");
         if (stirFryDamage > 0 && stirFryDamageChance > 0 && !player.canInstabuild()
                 && ThreadLocalRandom.current().nextDouble() < stirFryDamageChance) {
             shovel.hurtAndBreak(stirFryDamage, player,

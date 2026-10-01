@@ -71,6 +71,8 @@
 
 - **可选集成**：安装 [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) 后会自动注册内置变量扩展，无需从 eCloud 额外下载。
 
+- **成就**：可选安装本地优化的 **UltimateAdvancementAPI Pro 2.8.1-pro.2**。1.2.0 新增森罗厨房成就；未安装成就插件时，原有玩法正常运行。
+
 - **构建**：
 
   ```bash
@@ -82,7 +84,33 @@
 
   `gradle.properties` 中的 `craftEngineVersion` 统一控制 Bukkit、Core、Proxy 和测试使用的 **公开 API 版本**。截至 2026-10-01，官方 Maven 仓库最新公开 API 为 **26.9.1**，实际 CraftEngine 发布版为 **26.9.2**；因此默认依赖 26.9.1，兼容目标为 26.9.2。26.9.2 的实际插件包及运行库也已用于编译与回归验证。Core API 已包含重定位的 Adventure 类型，无需再混用旧版 `craft-engine-adventure`。
 
-  1.1.9 迁移了作物掉落上下文、家具的 `IntConsumer` 交互实体接口和蒸笼下落实体接口；下落被取消时保留原蒸笼中的食材。升级时替换插件 JAR 并重启服务器，继续使用原有 CraftEngine 资源包。仓库只附带资源包元数据，完整模型、贴图及玩法配置需沿用已有资源包。
+  1.1.9 迁移了作物掉落上下文、家具的 `IntConsumer` 交互实体接口和蒸笼下落实体接口；下落被取消时保留原蒸笼中的食材。升级时替换插件 JAR 并重启服务器，继续使用原有 CraftEngine 资源包。仓库附带资源包元数据和新增成就文本，完整模型、贴图及玩法配置需沿用已有资源包。
+
+### 森罗厨房成就（1.2.1）
+
+名称、描述、任务 / 目标 / 挑战类型、隐藏条件和分项要求对齐官方森罗物语 **1.6.0-forge+mc1.20.1**：[源码基准](https://github.com/KaleidoscopeMods/KaleidoscopeCookery/tree/2f4e386ce23f49a385ddf003c67fc6415c55417a)。目录保留“森罗厨房”入口及全部 **37 项成就**。完整资源包下注册入口和 **32 项可完成的成就**，包括烹饪、切菜、拉面、鱼稻共生、水田、猪儿虫喂鸡、稻草人和菜刀击杀等条件。
+
+尚未移植的 **5 项**自动隐藏：肉包打狗和四级氮气飞行。包子目前没有投掷命中狼并回血的行为；漂浮效果也没有模组的胀气推进及累计爬升机制。缺少必需物品的节点也会隐藏，剩余子节点接到最近可用的祖先。
+
+“拉拉拉拉拉拉面”监听资源包中生面团的完整使用和面条替换，取消操作或仅获得面条不会完成成就。“鱼稻共生”要求玩家用生物桶成功放出生物，并在放生处同高度的 3×3 范围内找到水稻；生物类型须在该水稻的 `booster_entities` 配置中。桶操作取消、生物生成被阻止或发射器放生不计入。蒸笼恢复挂在原模组的拉面节点下。
+
+“绝代双椒”的红椒、绿椒和“农夫乐事”的四类装备分别保存进度，重复获取同一物品不会填满其他条件。“黑暗料理”的两种料理按任一满足处理。入口要求获得模组物品，登录不会直接赠送。石磨成就奖励成功绑定动物的主人。被取消的操作、失败的烹饪和未造成伤害的取料不会发放对应成就。
+
+升级步骤：
+
+1. 替换插件 JAR，安装本地 UltimateAdvancementAPI Pro 并重启服务器。
+2. 把仓库中的 `Kaleidoscope/kaleidoscopecookery/configuration/advancements.yml` 合并到现有 CraftEngine 森罗物语包的 `configuration/` 目录。
+3. 执行 `/ce reload all`，然后按服务器现有流程重新生成并分发资源包。新增内容只有成就文本，模型和贴图沿用现有包。未更新文本的客户端显示内置中文回退文本。
+
+`config.yml` 中 `advancements.enabled` 控制集成，`advancements.disabled` 可填写模组节点名（例如 `dangerous_chef`）。执行 `/ce reload all` 后重新注册成就树，已保存的进度保留。成就文本支持官方语言文件提供的语言；Pro 的本地化显示和自动布局接口会在运行时自动启用。
+
+默认构建使用公开的 UAA 2.8.1 API，只作为编译依赖。验证本地 Pro 版可使用：
+
+```powershell
+.\gradlew.bat build "-PultimateAdvancementApiJar=C:/path/UltimateAdvancementAPI-Plugin-2.8.1-pro.2.jar"
+```
+
+成就接口不会被打包到本插件中。游戏行为可通过 `KaleidoscopeAdvancements.recordEvent(player, event)` 在操作成功后发送对应模组事件；未注册或尚未移植的事件会忽略。成就目录位于 `src/main/resources/advancements/kaleidoscope.json`，上游许可和来源说明随插件保存在 `licenses/` 中。持久化验证夹具见 `verification/advancements/`。
 
 ### 🛡️ 领地权限
 
@@ -93,7 +121,7 @@
 
 ## 📁 配置目录结构
 
-插件本身只有一个 `plugins/KaleidoscopeCookeryPlugin/config.yml`（控制台语言、食谱菜单外观、bStats 开关）。
+插件本身只有一个 `plugins/KaleidoscopeCookeryPlugin/config.yml`（控制台语言、食谱菜单外观、成就和 bStats 开关）。
 **玩法内容全部在 CraftEngine 资源包里**，资源包目录名可以自定义，但包根必须有声明固定命名空间的 `pack.yml`：
 
 ```yaml
